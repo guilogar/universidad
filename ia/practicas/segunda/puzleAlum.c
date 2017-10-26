@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 
- #include "puzle.h"
+/*#include "puzle.h"*/
 
 // int i = 0, j = 0;
 

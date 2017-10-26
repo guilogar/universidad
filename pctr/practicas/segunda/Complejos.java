@@ -5,7 +5,7 @@ public class Complejos {
     private double[] c;
     
     public Complejos() {
-        
+        c = new double[2];
     }
     
     public Complejos(double real, double compleja) {
@@ -52,5 +52,9 @@ public class Complejos {
         double parteCompleja = ((this.getCompleja() * comp.getReal()) - (this.getReal() * comp.getCompleja())) / comun;
         
         return new Complejos(parteReal, parteCompleja);
+    }
+    
+    public String toString() {
+        return this.c[0] + " + " + this.c[1] + "i";
     }
 }

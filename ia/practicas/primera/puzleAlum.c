@@ -218,9 +218,9 @@ int main(void) {
     
     /*iguales(estadoInicial(), estadoObjetivo());*/
     /*esValido(3, estadoInicial());*/
-    /*pintar_estado(estadoInicial());*/
-    
-    aplicaOperador(1, estadoInicial());
+    pintar_estado(estadoInicial());
+    /*dispEstado(estadoInicial());*/
+    /*aplicaOperador(1, estadoInicial());*/
     
     return 0;
 }

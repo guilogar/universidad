@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-// #include "puzle.h"
+ #include "puzle.h"
 
 // int i = 0, j = 0;
 
@@ -171,7 +171,7 @@ tEstado *aplicaOperador(unsigned op, tEstado *estado)
 
     int i = obtener_i(estado);
     int j = obtener_j(estado);
-    if(esValido(op, nuevo)) {
+    /*if(esValido(op, nuevo)) {*/
     switch (op) {
         case ARRIBA:
             nuevo->celdas[i][j] = nuevo->celdas[i-1][j];
@@ -196,43 +196,36 @@ tEstado *aplicaOperador(unsigned op, tEstado *estado)
         default:
             puts("por defecto.");
     }
-    } else {
-        puts("No es posible moverlo en esta direcci�n");
-    }
+    /*
+     *} else {
+     *    puts("No es posible moverlo en esta direcci�n");
+     *}
+     */
 
     dispEstado(nuevo);
 
     return nuevo;
 }
 
-//
-// int main(void) {
-//
-//     /*iguales(estadoInicial(), estadoObjetivo());*/
-//     /*esValido(3, estadoInicial());*/
-//
-//     i = obtener_i(estadoInicial());
-//     j = obtener_j(estadoInicial());
-//
-//     tEstado *estado = estadoInicial();
-//
-//     dispEstado(estado);
-//     puts("");
-//     aplicaOperador(1, estado);
-//     i = obtener_i(estadoInicial());
-//     j = obtener_j(estadoInicial());
-//     puts("");
-//     aplicaOperador(2, estado);
-//     i = obtener_i(estadoInicial());
-//     j = obtener_j(estadoInicial());
-//     puts("");
-//     aplicaOperador(3, estado);
-//     i = obtener_i(estadoInicial());
-//     j = obtener_j(estadoInicial());
-//     puts("");
-//     aplicaOperador(4, estado);
-//     i = obtener_i(estadoInicial());
-//     j = obtener_j(estadoInicial());
-//
-//     return 0;
-// }
+
+/*
+ *int main(void) {
+ *    
+ *    [>iguales(estadoInicial(), estadoObjetivo());<]
+ *    [>esValido(3, estadoInicial());<]
+ *    
+ *    tEstado *estado = estadoInicial();
+ *    
+ *    dispEstado(estado);
+ *    puts("");
+ *    aplicaOperador(1, estado);
+ *    puts("");
+ *    aplicaOperador(2, estado);
+ *    puts("");
+ *    aplicaOperador(3, estado);
+ *    puts("");
+ *    aplicaOperador(4, estado);
+ *
+ *    return 0;
+ *}
+ */

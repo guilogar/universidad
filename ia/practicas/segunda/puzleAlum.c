@@ -10,13 +10,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "puzle.h"
+// #include "puzle.h"
 
-int i = 0, j = 0;
+// int i = 0, j = 0;
 
 int obtener_i(tEstado *estado) {
     int i = 0, j = 0;
-    
+
     for (i = 0; i < N; i++) {
         for (j = 0; j < N; j++) {
             if(estado->celdas[i][j] == 0) {
@@ -29,7 +29,7 @@ int obtener_i(tEstado *estado) {
 
 int obtener_j(tEstado *estado) {
     int i = 0, j = 0;
-    
+
     for (i = 0; i < N; i++) {
         for (j = 0; j < N; j++) {
             if(estado->celdas[i][j] == 0) {
@@ -73,7 +73,7 @@ int coste(unsigned op, tEstado *estado)
    return 1;
 }
 
-/* VISUALIZACIÓN DE ESTADOS Y OPERADORES*/
+/* VISUALIZACIï¿½N DE ESTADOS Y OPERADORES*/
 
 
 void dispEstado(tEstado *estado)
@@ -101,11 +101,11 @@ void dispOperador(unsigned op)
 
 // FUNCIONES QUE SE HAN DE IMPLEMENTAR EN LA PRACTICA 1
 
-// Función auxiliar para comprobar si dos puzles tienen las fichas colocadas en el mismo orden en el tablero
+// Funciï¿½n auxiliar para comprobar si dos puzles tienen las fichas colocadas en el mismo orden en el tablero
 int iguales(tEstado *s, tEstado *t)  //
 {
     int i, j = N;
-    
+
     for (i = 0; i < N; i++) {
         for (j = 0; j < N; j++) {
             if(s->celdas[i][j] != t->celdas[i][j]) {
@@ -119,7 +119,7 @@ int iguales(tEstado *s, tEstado *t)  //
 
 int testObjetivo(tEstado *estado)
 {
-    
+
     return iguales(estado, estadoObjetivo());
 }
 
@@ -127,7 +127,8 @@ int testObjetivo(tEstado *estado)
 int esValido(unsigned op, tEstado *estado)
 {
     int esValido = 0;
-    
+    int i = obtener_i(estado);
+    int j = obtener_j(estado);
     switch (op) {
         case ARRIBA:
             if(i > 0) {
@@ -156,6 +157,9 @@ int esValido(unsigned op, tEstado *estado)
         default:
             puts("Operador Invalido.");
     }
+    // if(!esValido) {
+    //     puts("No es posible moverlo en esta direcciï¿½n");
+    // }
     return esValido;
 }
 
@@ -164,64 +168,71 @@ tEstado *aplicaOperador(unsigned op, tEstado *estado)
 {
     tEstado *nuevo = (tEstado *) malloc(sizeof(tEstado));
     memcpy(nuevo, estado, sizeof(tEstado));  // Hace una copia del estado
-    
-    int aux;
+
+    int i = obtener_i(estado);
+    int j = obtener_j(estado);
     if(esValido(op, nuevo)) {
-        
-        switch (op) {
-            case ARRIBA:
-                nuevo->celdas[i][j] = nuevo->celdas[i-1][j];
-                i--;
-                nuevo->celdas[i][j] = 0;
-                break;
-            case ABAJO:
-                nuevo->celdas[i][j] = nuevo->celdas[i+1][j];
-                i++;
-                nuevo->celdas[i][j] = 0;
-                break;
-            case IZQUIERDA:
-                nuevo->celdas[i][j] = nuevo->celdas[i][j-1];
-                j--;
-                nuevo->celdas[i][j] = 0;
-                break;
-            case DERECHA:
-                nuevo->celdas[i][j] = nuevo->celdas[i][j+1];
-                j++;
-                nuevo->celdas[i][j] = 0;
-                break;
-            default:
-                puts("por defecto.");
-        }
-    } else {
-        puts("No es posible moverlo en esta dirección");
+    switch (op) {
+        case ARRIBA:
+            nuevo->celdas[i][j] = nuevo->celdas[i-1][j];
+            i--;
+            nuevo->celdas[i][j] = 0;
+            break;
+        case ABAJO:
+            nuevo->celdas[i][j] = nuevo->celdas[i+1][j];
+            i++;
+            nuevo->celdas[i][j] = 0;
+            break;
+        case IZQUIERDA:
+            nuevo->celdas[i][j] = nuevo->celdas[i][j-1];
+            j--;
+            nuevo->celdas[i][j] = 0;
+            break;
+        case DERECHA:
+            nuevo->celdas[i][j] = nuevo->celdas[i][j+1];
+            j++;
+            nuevo->celdas[i][j] = 0;
+            break;
+        default:
+            puts("por defecto.");
     }
-    
+    } else {
+        puts("No es posible moverlo en esta direcciï¿½n");
+    }
+
     dispEstado(nuevo);
-    
+
     return nuevo;
 }
 
-
-int main(void) {
-    
-    /*iguales(estadoInicial(), estadoObjetivo());*/
-    /*esValido(3, estadoInicial());*/
-    
-    i = obtener_i(estadoInicial());
-    j = obtener_j(estadoInicial());
-    
-    tEstado *estado = estadoInicial();
-    
-    dispEstado(estado);
-    estado = aplicaOperador(1, estado);
-    estado = aplicaOperador(1, estado);
-    estado = aplicaOperador(2, estado);
-    estado = aplicaOperador(3, estado);
-    estado = aplicaOperador(3, estado);
-    estado = aplicaOperador(4, estado);
-    estado = aplicaOperador(4, estado);
-    
-    return 0;
-}
-
-
+//
+// int main(void) {
+//
+//     /*iguales(estadoInicial(), estadoObjetivo());*/
+//     /*esValido(3, estadoInicial());*/
+//
+//     i = obtener_i(estadoInicial());
+//     j = obtener_j(estadoInicial());
+//
+//     tEstado *estado = estadoInicial();
+//
+//     dispEstado(estado);
+//     puts("");
+//     aplicaOperador(1, estado);
+//     i = obtener_i(estadoInicial());
+//     j = obtener_j(estadoInicial());
+//     puts("");
+//     aplicaOperador(2, estado);
+//     i = obtener_i(estadoInicial());
+//     j = obtener_j(estadoInicial());
+//     puts("");
+//     aplicaOperador(3, estado);
+//     i = obtener_i(estadoInicial());
+//     j = obtener_j(estadoInicial());
+//     puts("");
+//     aplicaOperador(4, estado);
+//     i = obtener_i(estadoInicial());
+//     j = obtener_j(estadoInicial());
+//
+//     return 0;
+// }

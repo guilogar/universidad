@@ -2,7 +2,7 @@
 /* 		    LISTAIA.C                                         */
 /*						                                      */
 /* Asignatura: Inteligencia Artificial                        */
-/* Funciones para manejar listas estáticas de acuerdo         */
+/* Funciones para manejar listas estï¿½ticas de acuerdo         */
 /*           a las necesidades de la estrategia               */
 /*           de busqueda                                      */
 /**************************************************************/
@@ -12,7 +12,6 @@
 #include <stdio.h>
 
 #include "listaia.h"
-
 
 ///
 Lista CrearLista (int TamMax)
@@ -54,7 +53,7 @@ int ListaLlena (Lista C)
 }
 
 
-//Pre: Lista C no está vacía
+//Pre: Lista C no estï¿½ vacï¿½a
 //Post:Devuelve el primer elemento de la lista C
 tElemento *ExtraerPrimero(Lista C)
 {
@@ -62,8 +61,8 @@ tElemento *ExtraerPrimero(Lista C)
 }
 
 
-//Pre: Lista C no está vacía, i: es un índice entre 0 y TamMax
-//Post:Devuelve el elemento i-ésimo de la lista C (no lo elimina de la lista)
+//Pre: Lista C no estï¿½ vacï¿½a, i: es un ï¿½ndice entre 0 y TamMax
+//Post:Devuelve el elemento i-ï¿½simo de la lista C (no lo elimina de la lista)
 tElemento *ExtraerElem(Lista C,int i)
 {
    return (tElemento *) (C->elementos[i]);
@@ -79,7 +78,7 @@ void EliminarPrimero(Lista C)
 }
 
 
-//Pre: Lista C no está llena
+//Pre: Lista C no estï¿½ llena
 //Post:Devuelve el elemento primero de la lista
 void InsertarUltimo(tElemento *e, Lista C)
 {
@@ -91,7 +90,7 @@ void InsertarUltimo(tElemento *e, Lista C)
       C->fin = (C->fin+1);
 }
 
-//Pre: Lista C no está llena
+//Pre: Lista C no estï¿½ llena
 //Post:Devuelve el elemento primero de la lista
 void InsertarPrimero(tElemento *e, Lista C)
 {
@@ -105,7 +104,7 @@ void InsertarPrimero(tElemento *e, Lista C)
        C->Nelem=C->Nelem+1;
 }
 
-//Pre: Lista L1 no está vacía
+//Pre: Lista L1 no estï¿½ vacï¿½a
 //Post: Devuelve L1+L2
 Lista Concatenar(Lista L1,Lista L2)
 {

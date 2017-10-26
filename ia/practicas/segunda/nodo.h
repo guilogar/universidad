@@ -14,12 +14,8 @@
       int costeCamino;
       int profundidad;
       int valHeuristica;
+      int num_veces_visitado;
    } tNodoBusqueda;
 
    typedef tNodoBusqueda tNodo;
 #endif
-
-
-
-
-

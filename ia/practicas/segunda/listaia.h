@@ -2,7 +2,7 @@
 /* 		    LISTAIA.C                                         */
 /*						                                      */
 /* Asignatura: Inteligencia Artificial                        */
-/* Funciones para manejar listas estáticas de acuerdo         */
+/* Funciones para manejar listas estï¿½ticas de acuerdo         */
 /*           a las necesidades de la estrategia               */
 /*           de busqueda                                      */
 /**************************************************************/
@@ -24,8 +24,8 @@
 #define _LISTAIA_H_
    typedef struct {
       tElemento *elementos;
-      int Lmax;  //longitud máxima de la lista
-      int Nelem; //número de elmentos
+      int Lmax;  //longitud mï¿½xima de la lista
+      int Nelem; //nï¿½mero de elmentos
       int inicio, fin;
    }tLista;
 
@@ -35,23 +35,23 @@
    int ListaVacia (Lista C);
    int ListaLlena(Lista C);
 
-   //Pre: Lista C no está llena
+   //Pre: Lista C no estï¿½ llena
    //Post:Devuelve el elemento primero de la lista
    void InsertarPrimero(tElemento *x, Lista C);
 
-  //Pre: Lista C no está llena
+  //Pre: Lista C no estï¿½ llena
   //Post:Devuelve el ultimo elemento de la lista
    void InsertarUltimo(tElemento *x, Lista C);
 
-   //Pre: Lista C no está vacía, i: es un índice entre 0 y TamMax
-   //Post:Devuelve el elemento i-ésimo de la lista C
+   //Pre: Lista C no estï¿½ vacï¿½a, i: es un ï¿½ndice entre 0 y TamMax
+   //Post:Devuelve el elemento i-ï¿½simo de la lista C
    tElemento *ExtraerElem(Lista C,int i);
 
-   //Pre: Lista C no está vacía
+   //Pre: Lista C no estï¿½ vacï¿½a
    //Post:Devuelve el primer elemento de la lista C
    tElemento *ExtraerPrimero(Lista C);
 
-   //Pre: Lista L1 no está vacía
+   //Pre: Lista L1 no estï¿½ vacï¿½a
    //Post: Devuelve L1=L1+L2
    Lista Concatenar(Lista L1,Lista L2);
 

@@ -14,6 +14,11 @@
 #include "listaia.h"
 #include "busquedaAlum.h"
 
+#include "puzleAlum.c"
+#include "listaia.c"
+
+int contador_estados_visit = 0;
+int nodos_abiertos = 0;
 
 void dispCamino(tNodo *nodo)
 {
@@ -37,10 +42,12 @@ void dispSolucion(tNodo *nodo)
    dispCamino(nodo);
    printf("Profundidad=%d\n",nodo->profundidad);
    printf("Coste=%d\n",nodo->costeCamino);
+   printf("El numero de estados visitados es => %d.\n", contador_estados_visit);
+   printf("El numero de nodos abiertos es => %d.\n", nodos_abiertos);
 }
 
 
-/* Crea el nodo raíz. */
+/* Crea el nodo raï¿½z. */
 tNodo *nodoInicial()
 {
    tNodo *inicial=(tNodo *) malloc(sizeof(tNodo));
@@ -49,6 +56,7 @@ tNodo *nodoInicial()
    inicial->padre=NULL;
    inicial->costeCamino=0;
    inicial->profundidad=0;
+   inicial->num_veces_visitado = 1;
    return inicial;
 }
 
@@ -59,6 +67,7 @@ Lista expandir(tNodo *nodo)
    unsigned op;
    Lista sucesores=CrearLista(MAXI);
   // printf("\nLista de Sucesores de Actual: \n");
+
    for (op=1;op<=NUM_OPERADORES;op++)
    {
       if (esValido(op,nodo->estado))
@@ -71,9 +80,13 @@ Lista expandir(tNodo *nodo)
          nuevo->padre=nodo;
          nuevo->operador=op;
          nuevo->costeCamino=nodo->costeCamino + coste(op,nodo->estado);
-         nuevo->profundidad=nodo->profundidad+1;
+         nuevo->profundidad=nodo->profundidad + 1;
+
+         // Contador de estados.
+         contador_estados_visit++;
+
          if (!ListaLlena(sucesores)){
-            InsertarUltimo((void *) nuevo,sucesores);
+              InsertarUltimo((void *) nuevo,sucesores);
       //      dispEstado(nuevo->estado);
          }
       }
@@ -99,18 +112,39 @@ int busqueda()
    while (!ListaVacia(Abiertos) && !objetivo)
    {
       Actual= (void *) ExtraerPrimero(Abiertos);
-//      printf("\n ACTUAL: \n");
-//      dispEstado(Actual->estado);
-      //system("pause");
+      printf("\n ACTUAL: \n");
+      dispEstado(Actual->estado);
+
+      // Esto pa el windows.
+      // system("pause");
+      // Esto pa el linux, la calidad suprema.
+      printf("Press 'Enter' to continue: ... ");
+      while ( getchar() != '\n');
+
+
       EliminarPrimero(Abiertos);
-      objetivo=testObjetivo(Actual->estado);
+      objetivo = testObjetivo(Actual->estado);
       if (!objetivo)
       {
          Sucesores = expandir(Actual);
-         Abiertos=Concatenar(Abiertos, Sucesores);
-        
+         Abiertos = Concatenar(Abiertos, Sucesores);
+         nodos_abiertos++;
       }
    }
     dispSolucion(Actual);
    return objetivo;
+}
+
+
+int main(void) {
+
+    /*iguales(estadoInicial(), estadoObjetivo());*/
+    /*esValido(3, estadoInicial());*/
+
+    int i = obtener_i(estadoInicial());
+    int j = obtener_j(estadoInicial());
+    printf("i => %d, j => %d.\n", i, j);
+
+    busqueda();
+    return 0;
 }

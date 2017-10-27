@@ -9,9 +9,9 @@ int num_aleat_int(int a, int b)
     return (a + (rand() % (b - a + 1)));
 }
 
-int num_aleat_double(double a, double b)
+double num_aleat_double(double a, double b)
 {
-    return (a + (rand() / RAND_MAX) * (b - a));
+    return (a + ((double) rand() / RAND_MAX) * (b - a));
 }
 
 int dado_aleatorio()

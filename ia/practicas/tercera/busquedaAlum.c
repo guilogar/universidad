@@ -149,8 +149,11 @@ int busqueda()
 }
 
 int buscaRepe(tEstado *s, Lista l1) {
-    int i = 0;
-    for (i = l1->inicio; i < l1->fin; i++) {
+    int i = l1->inicio;
+    while(i != l1->fin) {
+        if(i == l1->Lmax) {
+            i = 0;
+        }
         tNodo *nod = (tNodo*) malloc(sizeof(tNodo));
         nod = (void *) ExtraerElem(l1, i);
         if(iguales(nod->estado, s)) {
@@ -159,8 +162,20 @@ int buscaRepe(tEstado *s, Lista l1) {
             puts(ANSI_COLOR_RESET);
             return 1;
         }
+        i++;
     }
     return 0;
+    // for (i = l1->inicio; i < l1->fin; i++) {
+    //     tNodo *nod = (tNodo*) malloc(sizeof(tNodo));
+    //     nod = (void *) ExtraerElem(l1, i);
+    //     if(iguales(nod->estado, s)) {
+    //         puts(ANSI_COLOR_YELLOW);
+    //         puts("--Atención-- NODO REPETIDO.");
+    //         puts(ANSI_COLOR_RESET);
+    //         return 1;
+    //     }
+    // }
+    // return 0;
 }
 
 int main(void) {

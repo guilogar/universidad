@@ -62,12 +62,15 @@ void inser_directa(int *array, int tamano)
 
 void permutaciones_burbuja(int *array, int n) {
     int total_num_perm = 0;
+    int num_perm;
     int array_perms[n];
+    double t;
     cronometro c;
     
-    for (int i = 1; i <= n; i++) {
-        int num_perm = 0;
+    for (int i = 0; i < n; i++) {
         c.activar();
+        t = 0;
+        num_perm = 0;
         do {
             memcpy(array_perms, array, (sizeof (int)) * i);
             
@@ -79,7 +82,7 @@ void permutaciones_burbuja(int *array, int n) {
             total_num_perm++;
         } while (next_permutation(array, array + i));
         c.parar();
-        double t = c.tiempo();
+        t = c.tiempo();
         
         cout << "Con tamaño " << (i) << " tiene " << num_perm << " permutaciones y tarda ";
         cout << t << "segundos.";
@@ -91,12 +94,15 @@ void permutaciones_burbuja(int *array, int n) {
 
 void permutaciones_sel_directa(int *array, int n) {
     int total_num_perm = 0;
+    int num_perm;
     int array_perms[n];
+    double t;
     cronometro c;
     
-    for (int i = 1; i <= n; i++) {
-        int num_perm = 0;
+    for (int i = 0; i < n; i++) {
         c.activar();
+        t = 0;
+        num_perm = 0;
         do {
             memcpy(array_perms, array, (sizeof (int)) * i);
             
@@ -108,7 +114,7 @@ void permutaciones_sel_directa(int *array, int n) {
             total_num_perm++;
         } while (next_permutation(array, array + i));
         c.parar();
-        double t = c.tiempo();
+        t = c.tiempo();
         
         cout << "Con tamaño " << (i) << " tiene " << num_perm << " permutaciones y tarda ";
         cout << t << "segundos.";
@@ -119,12 +125,15 @@ void permutaciones_sel_directa(int *array, int n) {
 
 void permutaciones_inser_directa(int *array, int n) {
     int total_num_perm = 0;
+    int num_perm;
     int array_perms[n];
+    double t;
     cronometro c;
     
-    for (int i = 1; i <= n; i++) {
-        int num_perm = 0;
+    for (int i = 0; i < n; i++) {
         c.activar();
+        t = 0;
+        num_perm = 0;
         do {
             memcpy(array_perms, array, (sizeof (int)) * i);
             
@@ -136,7 +145,7 @@ void permutaciones_inser_directa(int *array, int n) {
             total_num_perm++;
         } while (next_permutation(array, array + i));
         c.parar();
-        double t = c.tiempo();
+        t = c.tiempo();
         
         cout << "Con tamaño " << (i) << " tiene " << num_perm << " permutaciones y tarda ";
         cout << t << "segundos.";
@@ -145,11 +154,30 @@ void permutaciones_inser_directa(int *array, int n) {
     cout << "El numero de permutaciones total es => " << total_num_perm << ".\n";
 }
 
+void aleat_permutaciones(int *array, int n)
+{
+    double t;
+    int array_perms[n];
+    cronometro c;
+    
+    for (int i = 0; i < n; i += 1000) {
+        c.activar();
+        t = 0;
+        
+        memcpy(array_perms, array, (sizeof (int)) * i);
+        random_shuffle(array_perms, array_perms + i);
+        //print_array(array_perms, i);
+        
+        c.parar();
+        t = c.tiempo();
+    }
+}
+
 int main(int argc, const char *argv[])
 {
-    int N = 25;
+    int N = 20000;
     int numeros[N];
-    for (int i = 0; i < N; i++) 
+    for (int i = 0; i < N; i++)
     {
         numeros[i] = i;
     }
@@ -158,19 +186,16 @@ int main(int argc, const char *argv[])
     /*
      *burbuja(numeros, N);
      *print_array(numeros, N);
-     */
-    /*
      *sel_directa(numeros, N);
      *print_array(numeros, N);
-     */
-    /*
      *inser_directa(numeros, N);
      *print_array(numeros, N);
+     *
+     *permutaciones_burbuja(numeros, N);
+     *permutaciones_sel_directa(numeros, N);
+     *permutaciones_inser_directa(numeros, N);
      */
-    
-    //permutaciones_burbuja(numeros, N);
-    //permutaciones_sel_directa(numeros, N);
-    permutaciones_inser_directa(numeros, N);
+    aleat_permutaciones(numeros, N);
     
     return 0;
 }

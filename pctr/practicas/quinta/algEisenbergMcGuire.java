@@ -3,36 +3,50 @@ import java.lang.*;
 
 public class algEisenbergMcGuire implements Runnable {
     public static int turno = 0;
-    public static final int N = 5;
+    public static int i = 0, j = 0;
+    public static final int N = 10;
+    public static Estados banderas[] = new Estados[N];
     public static int numProcesos = 1;
-    private int index;
-    private Estados t;
     
-    public algEisenbergMcGuire(int index) {
-        this.index = index;
-        this.t = Estados.IDLE;
+    private int indice;
+    
+    public algEisenbergMcGuire(int indice) {
+        this.indice = indice;
     }
     
     public void run() {
         while(true) {
             do {
-                this.t = Estados.WAITING;
-                System.out.println("index actual => " + index);
-                System.out.println("turno actual =>" + turno);
-                while(this.index != turno) {
-                    //System.out.println("Turno => " + turno);
+                banderas[i] = Estados.WAITING;
+                j = turno;
+                //System.out.println("i => " + i + ", j => " + j);
+                while(j != i) {
+                    if(banderas[j] != Estados.IDLE) {
+                        j = turno;
+                        i = (i + 1) % N;
+                    } else {
+                        j = (j + 1) % N;
+                    }
                 }
-                this.t = Estados.ACTIVE;
-            } while(this.t == Estados.IDLE);
+                
+                banderas[i] = Estados.ACTIVE;
+                j = 0;
+                while((j < N-1) && ((j == i) || banderas[j] != Estados.ACTIVE))
+                    j++;
+                //System.out.println("i => " + i + ", j => " + j);
+            } while(j >= N && (turno == i || banderas[turno] == Estados.IDLE));
             
-            // BEGIN CRITICAL SECTION
             numProcesos++;
             numProcesos--;
-            System.out.println("Estamos en el hilo => " + this.index + " y parece que se mantiene la seguridad de la concurrencia porque hay " + numProcesos + " proceso en la sección crítica.");
-            // END CRITICAL SECTION
+            System.out.println("¿La concurrencia funciona? (numProcesos) => " + 
+                                numProcesos + ", hilo("+this.indice+")");
             
-            turno = ++turno % N;
-            t = Estados.IDLE;
+            j = ++turno % N;
+            while(banderas[j] == Estados.IDLE)
+                j = (j + 1) % N;
+            
+            turno = j;
+            banderas[i] = Estados.IDLE;
         }
     }
     

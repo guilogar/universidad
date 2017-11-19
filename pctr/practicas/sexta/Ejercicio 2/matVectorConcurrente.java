@@ -4,9 +4,9 @@ import java.util.concurrent.*;
 
 public class matVectorConcurrente implements Runnable {
     
-    private static int matriz[][];
-    private static int vector[][];
-    private static int res[][];
+    public static int matriz[][];
+    public static int vector[][];
+    public static int res[][];
     private static int tareas = Runtime.getRuntime().availableProcessors();
     private int limiteInferior = 0;
     private int limiteSuperior = 0;
@@ -38,10 +38,11 @@ public class matVectorConcurrente implements Runnable {
         }
     }
     
-    public static int[][] mulMatrizVector(int matriz[][]) throws InterruptedException {
+    public static int[][] mulMatrizVector(int matriz[][], int tareas) throws InterruptedException {
         ExecutorService pool = Executors.newCachedThreadPool();
         int linf = 0;
         int lsup = 0;
+        System.out.println("Tareas => " + tareas);
         for (int i = 0; i < tareas && i < matriz.length; i++) {
             lsup = linf + (matriz.length / tareas);
             if(matriz.length >= tareas) {
@@ -101,11 +102,13 @@ public class matVectorConcurrente implements Runnable {
         System.out.println("------");
         System.out.println();
         
-        long start = System.currentTimeMillis();
-        System.out.println("Res");
-        printMatriz(mulMatrizVector(matriz));
-        System.out.println("---");
-        long end = System.currentTimeMillis();
+        for (int i = 0; i < tareas; i++) {
+            long start = System.currentTimeMillis();
+            System.out.println("Res");
+            printMatriz(mulMatrizVector(matriz, i));
+            System.out.println("---");
+            long end = System.currentTimeMillis();
+        }
         //utilsFile.writeInFile("info", "matVectorConcurrente.txt", tamVector + " " + (end-start) + "\n");
     }
 }

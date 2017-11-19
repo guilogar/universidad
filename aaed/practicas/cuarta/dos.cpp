@@ -30,14 +30,15 @@ int main(void)
     c.coeficiente(0, 1);
     c.coeficiente(1, 1);
     
-    /*
-     *polinomio p (1);
-     *p.coeficiente(0, -1);
-     *p.coeficiente(1, 1);
-     */
+    polinomio p (1);
+    p.coeficiente(0, -1);
+    p.coeficiente(1, 1);
     
-    //polinomio t = c + p;
-    //print_polinomio(c);
+    polinomio t = c * p;
+    print_polinomio(t);
+    p = c;
+    polinomio q = c * p;
+    print_polinomio(q);
     
     return 0;
 }

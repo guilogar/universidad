@@ -8,20 +8,18 @@ class polinomio{
         //polinomio(const polinomio& p);
         //~polinomio();
         
-        //polinomio& operator =(const polinomio& p);
+        void operator =(const polinomio& p);
         friend polinomio operator +(const polinomio& p, const polinomio& q);
-        /*
-         *polinomio operator -(const polinomio& p);
-         *polinomio operator *(const polinomio& p);
-         */
+        friend polinomio operator +(const polinomio& p, const polinomio& q);
+        friend polinomio operator *(const polinomio& p, const polinomio& q);
         //polinomio operator /(const polinomio& p);
         
         int grado() const;
         double coeficiente(unsigned n) const;
-        void coeficiente(unsigned n, double c);
+        void coeficiente(int n, double c);
     private:
         int grado_pol;
-        double coeficientes[];
+        double *coeficientes;
 };
 #endif
 

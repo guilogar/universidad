@@ -47,7 +47,7 @@ public class primosParalelos {
              System.out.println("Calculo finalizado en "+tiempoTotal+" segundos");
              
              utilsFile.writeInFile("info", "curva_cores.txt", ""+k+" "+tiempoTotal+"\n");
-             utilsFile.writeInFile("info", "speed_up.txt", ""+k+" "+(double)(tiempoUno / tiempoTotal)+"\n");
+             utilsFile.writeInFile("info", "speed_up.txt", ""+k+" "+(tiempoUno / tiempoTotal)+"\n");
          }
     }
 }

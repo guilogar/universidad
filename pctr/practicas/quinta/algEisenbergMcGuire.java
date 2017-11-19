@@ -2,11 +2,11 @@ import java.util.*;
 import java.lang.*;
 
 public class algEisenbergMcGuire implements Runnable {
-    public static int turno = 0;
-    public static int i = 0, j = 0;
     public static final int N = 10;
-    public static Estados banderas[] = new Estados[N];
     public static int numProcesos = 1;
+    public volatile static int i = 0, j = 0;
+    public volatile static Estados banderas[] = new Estados[N];
+    public volatile static int turno = 0;
     
     private int indice;
     

@@ -52,34 +52,32 @@ polinomio mult_polinomio(polinomio c, polinomio p)
     return po;
 }
 
-polinomio div_polinomio(polinomio c, polinomio p)
-{
-    /*
-     *polinomio po (c.grado() - p.grado());
-     *
-     *for (int i = 0; i <= c.grado(); i++) {
-     *    polinomio pp(c.grado() - p.grado());
-     *    for (int j = 0; j <= p.grado(); j++) {
-     *        pp.coeficiente(j - i, c.coeficiente(j) / p.coeficiente(i));
-     *    }
-     *    po = sum_resta_polinomio(po, pp, 0);
-     *}
-     *return po;
-     */
+polinomio deriv_polinomio(polinomio c) {
+    int grado = c.grado() - 1;
+    
+    if(grado < 1)
+        grado = 0;
+    
+    polinomio po (grado);
+    for (int i = c.grado(); i > 0; i--) {
+        po.coeficiente(i-1, c.coeficiente(i) * i);
+    }
+    return po;
 }
-
 
 int main(void)
 {
-    polinomio c (1);
+    polinomio c (3);
     c.coeficiente(0, 1);
-    c.coeficiente(1, 1);
+    c.coeficiente(1, 5);
+    c.coeficiente(2, 3);
     
     polinomio p (1);
     p.coeficiente(0, -1);
     p.coeficiente(1, 1);
     
-    print_polinomio(sum_resta_polinomio(c, p, 0));
+    //print_polinomio(sum_resta_polinomio(c, p, 0));
+    print_polinomio(deriv_polinomio(c));
     
     return 0;
 }

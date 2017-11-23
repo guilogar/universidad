@@ -1,10 +1,3 @@
-/*******************************************/
-/* 		      PUZLE.H                      */
-/*						                   */
-/* Asignatura: Inteligencia Artificial     */
-/* Grado en Ingenieria Informatica - UCA   */
-/*******************************************/
-
 #define ARRIBA 1
 #define ABAJO 2
 #define IZQUIERDA 3

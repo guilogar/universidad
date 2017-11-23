@@ -1,16 +1,8 @@
-/*******************************************/
-/* 		      PUZLE.C                      */
-/*						                   */
-/* Asignatura: Inteligencia Artificial     */
-/* Grado en Ingenieria Informatica - UCA   */
-/*******************************************/
-
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include "puzle.h"
+#include "casillas.h"
 
 int i = 0, j = 0, coste_total = 0;
 

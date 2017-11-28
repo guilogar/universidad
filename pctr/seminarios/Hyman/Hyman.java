@@ -50,6 +50,7 @@ public class Hyman implements Runnable {
         ExecutorService pool = Executors.newCachedThreadPool();
         pool.execute(new Hyman(1));
         pool.execute(new Hyman(2));
+        pool.shutdown();
         pool.awaitTermination(1L, TimeUnit.DAYS);
     }
 }

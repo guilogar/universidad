@@ -39,7 +39,7 @@ void printf_info(Pila<char> p, Pila<char> t, string modo) {
     }
 }
 
-// Post condicion: Devuelve el codigo de la key arrow presionada o 0 si ha pulsado escape.
+// Post condicion: Devuelve el codigo de la key arrow presionada o -100 si ha pulsado escape.
 int kbhit(void)
 {
     int key_code = 0;
@@ -63,11 +63,7 @@ int kbhit(void)
         
         if((SpecialKeyCode = getchar()) != EOF) {
             if(SpecialKeyCode == 91) {
-                // Sequence code found, now next code will inform us
-                // regarding the arrow key pressed (65,66,67,68) 
-                //system("clear");
                 if ((arrow_code = getchar()) != EOF) {
-                    //cout << "El caracter es => " << arrow_code;
                     switch(arrow_code) {
                         case 67: key_code = -1; break; // Derecha
                         case 68: key_code = -2; break; // Izquierda
@@ -77,7 +73,7 @@ int kbhit(void)
                 }
             }
         } else {
-            //There isn't new code, this mean 27 came from ESC key pression
+            // ESC key pression
             key_code = -100;
         }
         tcsetattr(STDIN_FILENO, TCSANOW, &original_ts);

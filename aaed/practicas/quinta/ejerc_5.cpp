@@ -117,11 +117,10 @@ void move_cursor_to_end(Pila<char> &p, Pila<char> &t) {
         move_cursor_to_right(p, t);
 }
 
-int main() {
+void create_editor(bool read_mode, bool fin_programa, 
+                   bool reemplace, bool movements) {
     int c;
     string texto;
-    bool read_mode = true, fin_programa = false;
-    
     Pila<char> before_cursor;
     Pila<char> after_cursor;
     
@@ -133,12 +132,20 @@ int main() {
     printf_info(before_cursor, after_cursor, (read_mode) ? "Lectura" : "Edición");
     
     while(!fin_programa && (c = kbhit())) {
+        movements = true;
         if(!read_mode && c > 0) {
             if(c == 127) {
                 before_cursor.pop();
             } else {
                 before_cursor.push(c);
             }
+        }
+        if (read_mode && reemplace && !before_cursor.vacia() && 
+            c != 127 && c > 0) {
+            before_cursor.pop();
+            before_cursor.push(c);
+            reemplace = false;
+            movements = false;
         }
         switch(c) {
             case -100: {
@@ -152,15 +159,41 @@ int main() {
                       read_mode = false;
                      }; break;
             case 113: {
-                      if(read_mode) {
-                          fin_programa = true;
-                      }
+                       if(read_mode) {
+                           fin_programa = true;
+                       }
+                     }; break;
+            case 120: {
+                       if(read_mode && !before_cursor.vacia()) {
+                           before_cursor.pop();
+                       }
+                     }; break;
+            case 105: {
+                       if(!before_cursor.vacia()) {
+                           char p = before_cursor.tope();
+                           before_cursor.pop();
+                           if(!before_cursor.vacia()) {
+                               before_cursor.pop();
+                               before_cursor.push(p);
+                           }
+                       }
+                     }; break;
+            case 114: {
+                       if(read_mode && movements) {
+                           reemplace = true;
+                       }
                      }; break;
         }
         system("clear");
         printf_info(before_cursor, after_cursor, (read_mode) ? "Lectura" : "Edición");
-        //cout << "El caracter es => " << c << endl;
     }
+}
+
+int main() {
+    bool read_mode = true, fin_programa = false;
+    bool reemplace = false, movements = false;
+    
+    create_editor(read_mode, fin_programa, reemplace, movements);
     cout << endl << endl << "Fin del programa." << endl;
     
     return 0;

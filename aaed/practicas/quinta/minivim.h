@@ -1,0 +1,9 @@
+int kbhit();
+void print_ayuda();
+void print_info();
+void create_editor();
+void introduce_texto_pila();
+void move_cursor_to_left();
+void move_cursor_to_right();
+void move_cursor_to_begin();
+void move_cursor_to_end();

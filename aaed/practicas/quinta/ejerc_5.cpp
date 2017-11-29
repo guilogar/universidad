@@ -10,20 +10,47 @@
 #include <string>
 
 #include "pila.h"
-
-//===================================
-#define ANSI_COLOR_RED     "\x1b[31m"
-#define ANSI_COLOR_GREEN   "\x1b[32m"
-#define ANSI_COLOR_YELLOW  "\x1b[33m"
-#define ANSI_COLOR_BLUE    "\x1b[34m"
-#define ANSI_COLOR_MAGENTA "\x1b[35m"
-#define ANSI_COLOR_CYAN    "\x1b[36m"
-#define ANSI_COLOR_RESET   "\x1b[0m"
+#include "minivim.h"
+#include "color.h"
 
 using namespace std;
 
-void printf_info(Pila<char> p, Pila<char> t, string modo) {
+void print_ayuda() {
+    system("clear");
+    cout << "                AYUDA PARA UTILIZAR ESTE MINI-EDITOR (MINI-VIM =P)                " << endl;
+    cout << "                --------------------------------------------------                " << endl;
+    cout << "                --------------------------------------------------                " << endl;
+    cout << endl;
+    
+    cout << "Respecto al modo lectura: " << endl;
+    cout << "------------------------- " << endl;
+    cout << "Cursor Derecha --> Sirve para mover el cursor hacia la derecha." << endl;
+    cout << "Cursor Izquierda --> Sirve para mover el cursor hacia la izquierda." << endl;
+    cout << "\"x\" --> Sirve para eliminar el caracter sobre el que esta puesto el cursor." << endl;
+    cout << "\"i\" --> Sirve para eliminar el caracter anterior sobre el que esta puesto el cursor." << endl;
+    cout << "\"r\" --> Sirve para reemplazar el caracter sobre el que esta puesto el cursor por otro en concreto." << endl;
+    cout << "\"a\" --> Sirve para cambiar el modo de lectura al modo de edición normal." << endl;
+    cout << "\"q\" --> Sirve para finalizar el programa." << endl;
+    
+    cout << endl;
+    cout << endl;
+    
+    cout << "Respecto al modo edición: " << endl;
+    cout << "------------------------- " << endl;
+    cout << "\"ESC\" --> Sirve para volver al modo lectura." << endl;
+    
+    cout << endl;
+    cout << endl;
+    
+    cout << "Presione \"q\" para salir de la ayuda." << endl;
+    
+    while(kbhit() != 113);
+    system("clear");
+}
+
+void print_info(Pila<char> p, Pila<char> t, string modo) {
     string before;
+    cout << "Presione \"h\" en modo lectura para obtener ayuda." << endl;
     cout << "Modo del editor: " << modo << endl;
     while(!p.vacia()) {
         before += p.tope();
@@ -120,12 +147,12 @@ void create_editor(bool read_mode, bool fin_programa,
     Pila<char> before_cursor;
     Pila<char> after_cursor;
     
-    cout << "Escriba algo: " << endl;
+    cout << "Escriba algo (y presione después ENTER): " << endl;
     getline(cin, texto);
     before_cursor = introduce_texto_pila(texto);
     
     system("clear");
-    printf_info(before_cursor, after_cursor, (read_mode) ? "Lectura" : "Edición");
+    print_info(before_cursor, after_cursor, (read_mode) ? "Lectura" : "Edición");
     
     while(!fin_programa && (c = kbhit())) {
         movements = true;
@@ -164,6 +191,11 @@ void create_editor(bool read_mode, bool fin_programa,
                            before_cursor.pop();
                        }
                      }; break;
+            case 104: {
+                       if(read_mode) {
+                           print_ayuda();
+                       }
+                      }; break;
             case 105: {
                        if(!before_cursor.vacia()) {
                            char p = before_cursor.tope();
@@ -181,7 +213,7 @@ void create_editor(bool read_mode, bool fin_programa,
                      }; break;
         }
         system("clear");
-        printf_info(before_cursor, after_cursor, (read_mode) ? "Lectura" : "Edición");
+        print_info(before_cursor, after_cursor, (read_mode) ? "Lectura" : "Edición");
     }
 }
 

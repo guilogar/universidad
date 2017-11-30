@@ -109,8 +109,8 @@ int heuristica_man(tEstado *t) {
 Lista insertar_orden(Lista abiertos, tNodo *n) {
     
     int n_insert = 0;
-    Lista aux = (Lista) CrearLista(MAXI);
     int i = abiertos->inicio;
+    Lista aux = (Lista) CrearLista(MAXI);
     while(i != abiertos->fin) {
         if(i == abiertos->Lmax) {
             i = 0;
@@ -137,7 +137,9 @@ Lista a_estrella(Lista abiertos, Lista sucesores) {
     
     while(!ListaVacia(sucesores)) {
         tNodo *n = (tNodo *) ExtraerPrimero(sucesores);
+        EliminarPrimero(sucesores);
         abiertos = insertar_orden(abiertos, n);
+        puts("Trazando.");
     }
     return abiertos;
 }

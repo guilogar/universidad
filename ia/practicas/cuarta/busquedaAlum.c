@@ -19,10 +19,11 @@
 
 int heuristica = 1;
 int contador_estados_visit = 0;
+int busq_voraz = 0;
 
 void dispCamino(tNodo *nodo)
 {
-   if (nodo->padre==NULL)
+   if (nodo->padre == NULL)
    {
       printf("\n\nInicio:\n");
       dispEstado(nodo->estado);
@@ -48,7 +49,7 @@ void dispSolucion(tNodo *nodo, Lista l, Lista n)
 }
 
 
-/* Crea el nodo ra�z. */
+/* Crea el nodo raiz. */
 tNodo *nodoInicial()
 {
    tNodo *inicial=(tNodo *) malloc(sizeof(tNodo));
@@ -139,7 +140,20 @@ Lista a_estrella(Lista abiertos, Lista sucesores) {
         tNodo *n = (tNodo *) ExtraerPrimero(sucesores);
         EliminarPrimero(sucesores);
         abiertos = insertar_orden(abiertos, n);
-        puts("Trazando.");
+    }
+    return abiertos;
+}
+Lista voraz(Lista abiertos, Lista sucesores) {
+    
+    if(ListaVacia(abiertos) && !ListaVacia(sucesores)) {
+        InsertarUltimo(ExtraerPrimero(sucesores), abiertos);
+        EliminarPrimero(sucesores);
+    }
+    
+    if(!ListaVacia(sucesores)) {
+        tNodo *n = (tNodo *) ExtraerPrimero(sucesores);
+        EliminarPrimero(sucesores);
+        abiertos = insertar_orden(abiertos, n);
     }
     return abiertos;
 }
@@ -149,8 +163,6 @@ Lista expandir(tNodo *nodo)
 {
    unsigned op;
    Lista sucesores=CrearLista(MAXI);
-  // printf("\nLista de Sucesores de Actual: \n");
-
    for (op=1;op<=NUM_OPERADORES;op++)
    {
       if (esValido(op,nodo->estado))
@@ -166,16 +178,13 @@ Lista expandir(tNodo *nodo)
          nuevo->profundidad=nodo->profundidad + 1;
          nuevo->valHeuristica = (heuristica) ? heuristica_est(s) : heuristica_man(s);
 
-         // Contador de estados.
          contador_estados_visit++;
 
          if (!ListaLlena(sucesores)){
               InsertarUltimo((void *) nuevo,sucesores);
-      //      dispEstado(nuevo->estado);
          }
       }
   }
-  //system("pause");
   return sucesores;
 }
 
@@ -201,12 +210,9 @@ int busqueda()
       printf("\n ACTUAL: \n");
       dispEstado(Actual->estado);
 
-      // Esto pa el windows.
-      // system("pause");
       // Esto pa el linux, la calidad suprema.
       /*printf("Press 'Enter' to continue: ... ");*/
       /*while ( getchar() != '\n');*/
-
 
       EliminarPrimero(Abiertos);
       objetivo = testObjetivo(Actual->estado);
@@ -224,7 +230,10 @@ int busqueda()
       {
          Sucesores = expandir(Actual);
          /*Abiertos = Concatenar(Abiertos, Sucesores);*/
-         Abiertos = a_estrella(Abiertos, Sucesores);
+         if(busq_voraz)
+             Abiertos = a_estrella(Abiertos, Sucesores);
+         else
+            Abiertos = voraz(Abiertos, Sucesores);
       }
    }
    dispSolucion(Actual, Cerrados, Abiertos);
@@ -254,11 +263,7 @@ int main(void) {
 
     /*iguales(estadoInicial(), estadoObjetivo());*/
     /*esValido(3, estadoInicial());*/
-
-    int i = obtener_i(estadoInicial());
-    int j = obtener_j(estadoInicial());
-    printf("i => %d, j => %d.\n", i, j);
-
+    busq_voraz = 1;
     busqueda();
     return 0;
 }

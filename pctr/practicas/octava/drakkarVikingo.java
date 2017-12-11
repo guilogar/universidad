@@ -35,9 +35,6 @@ public class drakkarVikingo {
         ExecutorService pool = Executors.newCachedThreadPool();
         drakkarVikingo drak = new drakkarVikingo();
         
-        // estabas utilizando un monitor diferente para cada hebra
-        // haciendolo asi, trajaba bien
-        
         pool.execute(new vikingo(0, drak));
         for (int i = 1; i < N; i++) {
             pool.execute(new vikingo(i, drak));

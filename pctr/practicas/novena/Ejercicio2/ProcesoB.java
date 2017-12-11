@@ -2,16 +2,18 @@ import java.util.*;
 import java.util.concurrent.*;
 
 public class ProcesoB implements Runnable {
-    private Buffer f;
+    private Buffer f1;
+    private Buffer f2;
     private int tamTrasp;
     
-    public ProcesoB(Buffer f, Buffer f2, int tamTrasp) {
-        this.f = f;
+    public ProcesoB(Buffer f1, Buffer f2, int tamTrasp) {
+        this.f1 = f1;
+        this.f2 = f2;
         this.tamTrasp = tamTrasp;
     }
     
     public void run() {
-        double[][] matriz = f.extraer();
+        double[][] matriz = f1.extraer();
         double[][] matrizTrasp = new double[this.tamTrasp][tamTrasp];
         
         for (int i = 0; i < this.tamTrasp; i++) {
@@ -19,6 +21,6 @@ public class ProcesoB implements Runnable {
                 matrizTrasp[i][j] = matriz[j][i];
             }
         }
-        f.insertar(matriz);
+        f2.insertar(matriz);
     }
 }

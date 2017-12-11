@@ -227,41 +227,6 @@ tEstado *aplicaOperador(unsigned op, tEstado *estado)
     
     dispEstado(nuevo);
     return nuevo;
-    /*
-     *if(esValido(op, nuevo)) {
-     *    printf("El coste en esta operacion es => %d.\n", coste(op, nuevo));
-     *    printf("El coste total es => %d.\n", coste_total);
-     *    
-     *    switch (op) {
-     *        case ARRIBA:
-     *            nuevo->celdas[i][j] = nuevo->celdas[i-2][j];
-     *            i-=2;
-     *            nuevo->celdas[i][j] = 1;
-     *            break;
-     *        case ABAJO:
-     *            nuevo->celdas[i][j] = nuevo->celdas[i+2][j];
-     *            i+=2;
-     *            nuevo->celdas[i][j] = 1;
-     *            break;
-     *        case IZQUIERDA:
-     *            nuevo->celdas[i][j] = nuevo->celdas[i][j-2];
-     *            j-=2;
-     *            nuevo->celdas[i][j] = 1;
-     *            break;
-     *        case DERECHA:
-     *            nuevo->celdas[i][j] = nuevo->celdas[i][j+2];
-     *            j+=2;
-     *            nuevo->celdas[i][j] = 1;
-     *            break;
-     *        default:
-     *            puts("por defecto.");
-     *    }
-     *    nuevo->fila = i;
-     *    nuevo->columna = j;
-     *} else {
-     *    puts("Error, no se puede mover hacia este lado.");
-     *}
-     */
 }
 
 int main(void) {
@@ -291,5 +256,3 @@ int main(void) {
     
     return 0;
 }
-
-

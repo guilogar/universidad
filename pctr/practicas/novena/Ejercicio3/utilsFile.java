@@ -1,12 +1,9 @@
 import java.io.BufferedWriter;
-import java.io.BufferedReader;
-import java.io.FileWriter;
-import java.io.FileReader;
-import java.io.IOException;
 import java.io.File;
-import java.nio.file.Files;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.channels.FileChannel;
 import java.util.Calendar;
@@ -15,38 +12,40 @@ import java.util.logging.Logger;
 
 public class utilsFile {
     
-    public static String readOfFile(String fold, String filename) {
-        
-        BufferedReader bw = null;
-        FileWriter fw = null;
-
-        try {
-            if(fold != null) {
-                boolean success = (new File(fold)).mkdirs();
-                if (success || (new File(fold).exists() && new File(fold).isDirectory())) {
-                    filename = fold + "/" + filename;
-                }
-            }
-            fw = new FileReader(filename, true);
-            bw = new BufferedReader(fw);
-            bw.write(content);
-            
-            System.out.println("Done");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (bw != null)
-                    bw.close();
-                    
-                if (fw != null)
-                    fw.close();
-                    
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
+/*
+ *    public static String readOfFile(String fold, String filename) {
+ *        
+ *        BufferedReader bw = null;
+ *        FileWriter fw = null;
+ *
+ *        try {
+ *            if(fold != null) {
+ *                boolean success = (new File(fold)).mkdirs();
+ *                if (success || (new File(fold).exists() && new File(fold).isDirectory())) {
+ *                    filename = fold + "/" + filename;
+ *                }
+ *            }
+ *            fw = new FileReader(filename, true);
+ *            bw = new BufferedReader(fw);
+ *            bw.write(content);
+ *            
+ *            System.out.println("Done");
+ *        } catch (IOException e) {
+ *            e.printStackTrace();
+ *        } finally {
+ *            try {
+ *                if (bw != null)
+ *                    bw.close();
+ *                    
+ *                if (fw != null)
+ *                    fw.close();
+ *                    
+ *            } catch (IOException ex) {
+ *                ex.printStackTrace();
+ *            }
+ *        }
+ *    }
+ */
     
     public static void writeInFile(String fold, String filename, String content) {
         

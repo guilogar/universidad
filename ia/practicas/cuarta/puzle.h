@@ -11,8 +11,8 @@
 #define IZQUIERDA 3
 #define DERECHA 4
 #define NUM_OPERADORES 4
-// #define N 3
-#define N 2
+#define N 3
+//#define N 2
 
 #ifndef _tEstado_
 #define _tEstado_
@@ -23,32 +23,34 @@
 #endif
 
 
+/*
+ *static int puzle_inicial[N][N]=
+ *{
+ *  {0, 1},
+ *  {3, 2},
+ *};
+ *
+ *static int puzle_final[N][N]=
+ *{
+ *  {1, 2},
+ *  {0, 3},
+ *};
+ */
+
 static int puzle_inicial[N][N]=
 {
-  {0, 1},
-  {3, 2},
+  {7,6,2},
+  {5,0,3},
+  {1,8,4}
 };
+
 
 static int puzle_final[N][N]=
 {
-  {1, 2},
-  {0, 3},
+  {1,2,3},
+  {8,0,4},
+  {7,6,5}
 };
-
-// static int puzle_inicial[N][N]=
-// {
-//   {1,7,3},
-//   {6,0,4},
-//   {8,5,2}
-// };
-//
-//
-// static int puzle_final[N][N]=
-// {
-//   {1,2,3},
-//   {8,0,4},
-//   {7,6,5}
-// };
 
 /* A partir de una configuraci�n de fichas construye un estado v�lido para el problema
   de acuerdo al tipo de datos tEstado. */

@@ -17,8 +17,8 @@
 #include "puzleAlum.c"
 #include "listaia.c"
 
-int heuristica = 1;
 int contador_estados_visit = 0;
+int heuristica_estandar = 1;
 int busq_voraz = 0;
 
 void dispCamino(tNodo *nodo)
@@ -62,18 +62,6 @@ tNodo *nodoInicial()
    return inicial;
 }
 
-int heuristica_est(tEstado *t) {
-    int total = 0;
-    tEstado *s = estadoObjetivo();
-    for (int i = 0; i < N; i++) {
-        for (int j = 0; j < N; j++) {
-            if(t->celdas[i][j] != s->celdas[i][j])
-                total++;
-        }
-    }
-    return total;
-}
-
 int obtener_fila(int valor, tEstado *t) {
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
@@ -92,17 +80,26 @@ int obtener_columna(int valor, tEstado *t) {
     }
     return -1;
 }
+
+int heuristica_est(tEstado *t) {
+    int total = 0;
+    tEstado *s = estadoObjetivo();
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            if(t->celdas[i][j] != s->celdas[i][j])
+                total++;
+        }
+    }
+    return total;
+}
+
 int heuristica_man(tEstado *t) {
     int total = 0;
     tEstado *s = estadoObjetivo();
     for(int k = 0; k < N; k++) {
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                int f = obtener_fila(k, t) - obtener_fila(k, s);
-                int g = obtener_columna(k, t) - obtener_columna(k, s);
-                total += abs(f) + abs(g);
-            }
-        }
+        int f = obtener_fila(k, t) - obtener_fila(k, s);
+        int g = obtener_columna(k, t) - obtener_columna(k, s);
+        total += abs(f) + abs(g);
     }
     return total;
 }
@@ -126,11 +123,18 @@ Lista insertar_orden(Lista abiertos, tNodo *n) {
         InsertarUltimo((void *) nod, aux);
         i++;
     }
+    if(!n_insert) {
+        InsertarUltimo((void *) n, aux);
+    }
     return aux;
 }
 
 Lista a_estrella(Lista abiertos, Lista sucesores) {
     
+    /*
+     *printf("(1)Numero de elementos de abiertos => %d.\n", abiertos->Nelem);
+     *printf("(1)Numero de elementos de sucesores => %d.\n", sucesores->Nelem);
+     */
     if(ListaVacia(abiertos) && !ListaVacia(sucesores)) {
         InsertarUltimo(ExtraerPrimero(sucesores), abiertos);
         EliminarPrimero(sucesores);
@@ -138,9 +142,13 @@ Lista a_estrella(Lista abiertos, Lista sucesores) {
     
     while(!ListaVacia(sucesores)) {
         tNodo *n = (tNodo *) ExtraerPrimero(sucesores);
-        EliminarPrimero(sucesores);
         abiertos = insertar_orden(abiertos, n);
+        EliminarPrimero(sucesores);
     }
+    /*
+     *printf("(2)Numero de elementos de abiertos => %d.\n", abiertos->Nelem);
+     *printf("(2)Numero de elementos de sucesores => %d.\n", sucesores->Nelem);
+     */
     return abiertos;
 }
 Lista voraz(Lista abiertos, Lista sucesores) {
@@ -176,15 +184,13 @@ Lista expandir(tNodo *nodo)
          nuevo->operador=op;
          nuevo->costeCamino=nodo->costeCamino + coste(op,nodo->estado);
          nuevo->profundidad=nodo->profundidad + 1;
-         nuevo->valHeuristica = (heuristica) ? heuristica_est(s) : heuristica_man(s);
-
-         contador_estados_visit++;
-
+         nuevo->valHeuristica = (heuristica_estandar) ? heuristica_est(s) : heuristica_man(s);
          if (!ListaLlena(sucesores)){
               InsertarUltimo((void *) nuevo,sucesores);
          }
       }
   }
+  /*printf("(0)Numero de elementos de sucesores => %d.\n", sucesores->Nelem);*/
   return sucesores;
 }
 
@@ -209,14 +215,14 @@ int busqueda()
       Actual = (void *) ExtraerPrimero(Abiertos);
       printf("\n ACTUAL: \n");
       dispEstado(Actual->estado);
-
+      
+      objetivo = testObjetivo(Actual->estado);
+      EliminarPrimero(Abiertos);
+      
       // Esto pa el linux, la calidad suprema.
       /*printf("Press 'Enter' to continue: ... ");*/
       /*while ( getchar() != '\n');*/
-
-      EliminarPrimero(Abiertos);
-      objetivo = testObjetivo(Actual->estado);
-
+      
       repetido = buscaRepe(Actual->estado, Cerrados);
       if(!ListaLlena(Cerrados)) {
           InsertarUltimo((void *) Actual, Cerrados);
@@ -225,24 +231,26 @@ int busqueda()
           puts("ERROR: NO HAY SUFICIENTE MEMORIA.");
           puts(ANSI_COLOR_RESET);
       }
-
+      
       if (!objetivo && !repetido)
       {
+         contador_estados_visit++;
          Sucesores = expandir(Actual);
          /*Abiertos = Concatenar(Abiertos, Sucesores);*/
-         if(busq_voraz)
-             Abiertos = a_estrella(Abiertos, Sucesores);
+         if(!busq_voraz)
+            Abiertos = a_estrella(Abiertos, Sucesores);
          else
             Abiertos = voraz(Abiertos, Sucesores);
       }
+      /*printf("(3)Numero de elementos de abiertos => %d.\n", Abiertos->Nelem);*/
    }
    dispSolucion(Actual, Cerrados, Abiertos);
    return objetivo;
 }
 
 int buscaRepe(tEstado *s, Lista l1) {
-    int i = l1->inicio;
-    while(i != l1->fin) {
+    int i = l1->inicio, equal = 0;
+    while(i != l1->fin && !equal) {
         if(i == l1->Lmax) {
             i = 0;
         }
@@ -252,18 +260,19 @@ int buscaRepe(tEstado *s, Lista l1) {
             puts(ANSI_COLOR_YELLOW);
             puts("--Atención-- NODO REPETIDO.");
             puts(ANSI_COLOR_RESET);
-            return 1;
+            equal = 1;
         }
         i++;
     }
-    return 0;
+    return equal;
 }
 
 int main(void) {
 
     /*iguales(estadoInicial(), estadoObjetivo());*/
     /*esValido(3, estadoInicial());*/
-    busq_voraz = 1;
+    busq_voraz = 0;
+    heuristica_estandar = 1;
     busqueda();
     return 0;
 }

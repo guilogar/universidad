@@ -6,5 +6,5 @@
 /* Grado en Ingenieria Informatica - UCA   */
 /*******************************************/
 
-tNodo *jugadaAdversario(tNodo *t);
 tNodo *PSEUDOminimax(tNodo *Nodo);
+tNodo *jugadaAdversario(tNodo *t);

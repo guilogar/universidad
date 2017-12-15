@@ -25,7 +25,7 @@ tNodo *crearNodo(int celdas[N])
          c=celdas[i];
          Nodo->celdas[i]=c;
          if (c==0)
-	      Nodo->vacias=Nodo->vacias+1;
+             Nodo->vacias=Nodo->vacias+1;
       }
    return Nodo;
 }
@@ -49,7 +49,7 @@ int lleno(tNodo *tablero){
     return (tablero->vacias != 0);
 }
 
-int terminal(tNodo *Nodo, int jugador)
+int terminal(tNodo *Nodo)
 {
     unsigned opciones[8][3] = {{0,1,2},{3,4,5},{6,7,8},{0,3,6},{1,4,7},{2,5,8},{0,4,8},{2,4,6}};
     int i=0,res=0;
@@ -87,9 +87,3 @@ void dispNodo(tNodo *b) {
      printf(" %c | %c | %c\n",marca(b->celdas[6]),marca(b->celdas[7]),marca(b->celdas[8]));
      printf("---+---+---\n\n");
 }
-
-
-
-
-
-

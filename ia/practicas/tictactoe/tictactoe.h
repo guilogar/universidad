@@ -44,10 +44,10 @@ int esValida(tNodo *actual, int jugada);
 //devuelve:  si ha gando MAX 100, si ha ganado MIN -100, empate 0
 // si no es terminal también devuelve 0
 
-int terminal(tNodo *actual, int jugador);
+int terminal(tNodo *actual);
 tNodo* minimax(tNodo *nodo, int jugador);
-int valorMin(tNodo *nodo);
-int valorMax(tNodo *nodo);
+int valorMin(tNodo *nodo, int profundidad);
+int valorMax(tNodo *nodo, int profundidad);
 int min(int i, int j);
 int max(int i, int j);
 int utilidad(tNodo *nodo);
@@ -55,6 +55,9 @@ void dispNodo(tNodo *s);
 int opuesto( int jugador);
 int lleno(tNodo *s);
 
+tNodo* poda_ab(tNodo *nodo, int jugador);
+int valorMin_ab(tNodo *nodo, int jugador, int prof, int alfa, int beta);
+int valorMax_ab(tNodo *nodo, int jugador, int prof, int alfa, int beta);
 
 
 #endif

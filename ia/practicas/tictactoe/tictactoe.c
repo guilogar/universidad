@@ -1,10 +1,3 @@
-/*******************************************/
-/* 		    tictactoe.c                    */
-/*       Estrategia MiniMax                */
-/*						                   */
-/* Asignatura: Inteligencia Artificial     */
-/* Grado en Ingenieria Informatica - UCA   */
-/*******************************************/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

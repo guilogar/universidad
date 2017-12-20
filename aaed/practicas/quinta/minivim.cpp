@@ -155,7 +155,7 @@ void create_editor(bool read_mode, bool fin_programa,
     getline(cin, texto);
     before_cursor = introduce_texto_pila(texto);
     
-    system("clear");
+    //system("clear");
     print_info(before_cursor, after_cursor, (read_mode) ? "Lectura" : "Edición");
     
     while(!fin_programa && (c = kbhit())) {
@@ -222,7 +222,7 @@ void create_editor(bool read_mode, bool fin_programa,
         }
         //cout << c;
         //continue;
-        system("clear");
+        //system("clear");
         print_info(before_cursor, after_cursor, (read_mode) ? "Lectura" : "Edición");
     }
 }

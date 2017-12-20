@@ -1,11 +1,3 @@
-/*******************************************/
-/* 		    tictactoe.h                    */
-/*       Estrategia MiniMax                */
-/*						                   */
-/* Asignatura: Inteligencia Artificial     */
-/* Grado en Ingenieria Informatica - UCA   */
-/*******************************************/
-
 #ifndef TICTAC_H
 
 #define TICTAC_H

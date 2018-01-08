@@ -51,7 +51,7 @@ template <typename T>
 inline const T& Cola<T>::tope() const
 {
     assert(!vacia());
-    return begin_->elto;
+    return tope_->elto;
 }
 
 template <typename T>
@@ -86,12 +86,13 @@ Cola<T>::~Cola()
     }
 }
 
+// Hay que arreglar el copiar para cola normal.
 // Método privado
 template <typename T>
 void Cola<T>::copiar(const Cola<T>& c)
 {
     if (!c.vacia()) {
-        begin_ = new nodo(c.tope()); // copiar el primer elto
+        begin_ = new nodo(c.begin_->elto); // copiar el primer elto
         
         // Copiar el resto de elementos hasta el fondo de la Cola.
         nodo* p = begin_; // recorre la Cola destino

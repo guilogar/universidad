@@ -1,13 +1,13 @@
 (clear)
 (reset)
 
-(deftemplate coche 
-	(slot modelo)
-	(slot precio (type INTEGER) (default 13000))
-	(slot maletero (allowed-values Pequeño Mediano Grande) (default Grande))
-	(slot n_caballos (type INTEGER) (default 80))
-	(slot abs (default Si))
-	(slot consumo_litros (type FLOAT) (default 8.0))
+(deftemplate coche
+    (slot modelo)
+    (slot precio (type INTEGER) (default 13000))
+    (slot maletero (allowed-values Pequeño Mediano Grande) (default Grande))
+    (slot n_caballos (type INTEGER) (default 80))
+    (slot abs (default Si))
+    (slot consumo_litros (type FLOAT) (default 8.0))
 )
 
 (list-deftemplates)
@@ -48,7 +48,12 @@
 (reset)
 (facts)
 
-REM (assert (coche (precio 12500)))
-REM (assert (coche ))
+;(assert (coche (precio 12500)))
+;(assert (coche ))
 
-(defrule )
+;(defrule maletero_pequeño
+    ;(coche.maletero ?x Pequeño)
+    ;(coche.n_caballos ?x 147)
+    ;=> (assert(coche ?x modelo5))
+;)
+;(agenda)

@@ -1,13 +1,23 @@
 ; Si se utiliza load, se quita los comandos. En caso contrario, utiliza batch
+;(watch focus)
+(watch facts)
+(watch rules)
+(watch activations)
+(watch deffunctions)
+(watch statistics)
+(watch globals)
+(watch generic-functions)
+(watch agenda)
+
 (clear)
 (reset)
 
 (deftemplate coche
-    (slot modelo)
+    (slot modelo (default Cochecito))
     (slot precio (type INTEGER) (default 13000))
     (slot maletero (allowed-values Pequeño Mediano Grande) (default Grande))
     (slot n_caballos (type INTEGER) (default 80))
-    (slot abs (default Si))
+    (slot abis (default Si))
     (slot consumo_litros (type FLOAT) (default 8.0))
 )
 
@@ -18,7 +28,7 @@
            (precio 12000)
            (maletero Pequeño)
            (n_caballos 65)
-           (abs No)
+           (abis No)
            (consumo_litros 4.7)
     )
     (coche (modelo modelo2)
@@ -49,12 +59,12 @@
 (reset)
 (facts)
 
-;(assert (coche (precio 12500)))
-;(assert (coche ))
+(defrule R1precio
+    (coche (precio ?x))
+    (precio_limite ?y)
+    (test(<= ?x ?y))
+    => (printout t "El modelo que encaja es => " ?x crlf))
 
-;(defrule R1_Modelo5
-    ;(coche.maletero ?x Pequeño)
-    ;(coche.n_caballos ?x 147)
-    ;=> (assert(coche ?x modelo5))
-;)
-;(agenda)
+(assert (precio_limite 12000))
+
+(run)

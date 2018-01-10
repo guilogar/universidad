@@ -1,3 +1,4 @@
+; Si se utiliza load, se quita los comandos. En caso contrario, utiliza batch
 (clear)
 (reset)
 
@@ -12,7 +13,7 @@
 
 (list-deftemplates)
 
-(deffacts facts_iniciales
+(deffacts facts_on_init
     (coche (modelo modelo1)
            (precio 12000)
            (maletero Pequeño)
@@ -51,7 +52,7 @@
 ;(assert (coche (precio 12500)))
 ;(assert (coche ))
 
-;(defrule maletero_pequeño
+;(defrule R1_Modelo5
     ;(coche.maletero ?x Pequeño)
     ;(coche.n_caballos ?x 147)
     ;=> (assert(coche ?x modelo5))

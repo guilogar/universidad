@@ -37,6 +37,7 @@ private:
 template <typename T>
 void Lista<T>::copiar(const Lista<T> &l)
 {
+    nodo* q;
     L = new nodo(T()); // crear el nodo cabecera nodo* q = L;
     for (nodo* r = l.L->sig; r; r = r->sig)
     {

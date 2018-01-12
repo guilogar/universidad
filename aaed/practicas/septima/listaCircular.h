@@ -1,167 +1,165 @@
-
-#ifndef ListaCircular_h
-#define ListaCircular_h
+#ifndef LISTA_CIRC_H
+#define LISTA_CIRC_H
 
 #define POS_NULA 0
 #include <cassert>
 
-template <typename T>
-class ListaCircular
-{
-    struct nodo; // declaración adelantada privada
+template <typename T> class Lista {
+    struct nodo; // declaración adelantada privada
     public:
-        typedef nodo* posicion; // posición de un elemento
-        ListaCircular(); // constructor, requiere ctor. T()
-        ListaCircular(const ListaCircular<T>& l); // ctor. de copia, requiere ctor. T()
-        ListaCircular<T>& operator =(const ListaCircular<T>& l); // asignación de
+        typedef nodo* posicion; // posición de un elemento
+        Lista(); // constructor, requiere ctor. T()
+        Lista(const Lista<T>& l); // ctor. de copia, requiere ctor. T()
+        Lista<T>& operator =(const Lista<T>& l); // asignación entre listas
         void insertar(const T& x, posicion p);
         void eliminar(posicion p);
         const T& elemento(posicion p) const; // acceso a elto, lectura
-        T& elemento(posicion p); // acceso a elto, lectura/escritura
+        T& elemento(posicion p); // acceso a elto, lectura/escritura<Paste>
         posicion buscar(const T& x) const; // T requiere operador ==
-        posicion inipos() const;
         posicion siguiente(posicion p) const;
         posicion anterior(posicion p) const;
-        ~ListaCircular(); // destructor
+        posicion primera() const;
+        posicion inipos() const;
+        posicion fin() const; // posición después del último
+        ~Lista(); // destructor
     private:
-        struct nodo
-        {
+        struct nodo {
             T elto;
-            nodo* sig;
-            nodo* ant;
-            nodo(const T& e, nodo* p = 0, nodo* q = 0): elto(e), sig(p), ant(q) {}
+            nodo *ant, *sig;
+            nodo(const T& e, nodo* a = 0, nodo* s = 0) : elto(e), ant(a), sig(s) {}
         };
-        nodo* L; // ListaCircular enlazada de nodos
-        void copiar(const ListaCircular<T>& l);
+        nodo* L; // lista doblemente enlazada de nodos
+        nodo* F;
+        void copiar(const Lista<T>& l);
 };
 
-// Método privado
+// Método privado
 template <typename T>
-void ListaCircular<T>::copiar(const ListaCircular<T> &l)
+void Lista<T>::copiar(const Lista<T> &l)
 {
+     L = new nodo(T()); // crear el nodo cabecera
+     L->ant = L->sig = L; // estructura circular
+     // Copiar elementos de l
+     for (nodo* q = l.L->sig; q != l.L; q = q->sig)
+     L->ant = L->ant->sig = new nodo(q->elto, L->ant, L);
+}
+
+template <typename T>
+inline Lista<T>::Lista() : L(new nodo(T())) // crear cabecera
+{
+    L->ant = L->sig = L; // estructura circular
+}
+
+template <typename T>
+inline Lista<T>::Lista(const Lista<T>& l)
+{ copiar(l); }
+
+template <typename T>
+Lista<T>& Lista<T>::operator =(const Lista<T>& l)
+{
+    if (this != &l) { // evitar autoasignación
+        this->~Lista(); // vaciar la lista actual
+        copiar(l);
+    }
+    return *this;
+}
+template <typename T> inline
+void Lista<T>::insertar(const T& x, Lista<T>::posicion p)
+{
+    p->sig = p->sig->ant = new nodo(x, p, p->sig);
     /*
-     *L = new nodo(T());
-     *for (nodo* r = l.L->sig; r; r = r->sig)
-     *{
-     *    copia->sig = new nodo(r->elto);
-     *    copia = copia->sig;
+     *if(p == L && F != 0) {
+     *    F = p;
      *}
      */
+    // el nuevo nodo con x queda en la posición p
 }
 
 template <typename T>
-inline ListaCircular<T>::ListaCircular() : L(new nodo(T()))
-{}
-
-template <typename T>
-inline ListaCircular<T>::ListaCircular(const ListaCircular<T>& l)
+inline void Lista<T>::eliminar(Lista<T>::posicion p)
 {
-    copiar(l);
-}
-
-template <typename T>
-ListaCircular<T>& ListaCircular<T>::operator =(const ListaCircular<T>& l)
-{
-    if (this != &l)
-    {
-        this->~ListaCircular();
-    }
-    
-    return *this;
+    assert(p->sig != L); // p no es fin
+    nodo* q = p->sig;
+    p->sig = q->sig;
+    p->sig->ant = p;
+    delete q;
+    // el nodo siguiente queda en la posición p
 }
 
 template <typename T> inline
-void ListaCircular<T>::insertar(const T& x, ListaCircular<T>::posicion p)
+const T& Lista<T>::elemento(Lista<T>::posicion p) const
 {
-    p->sig = new nodo(x, p->sig, p);
-    L->ant = p;
-}
-
-template <typename T>
-inline void ListaCircular<T>::eliminar(ListaCircular<T>::posicion p)
-{
-    assert(p->sig);
-    nodo* q = p->sig;
-    p->sig = q->sig;
-    delete q;
-}
-
-/*
- *template <typename T> inline
- *const T& ListaCircular<T>::buscar(ListaCircular<T>::posicion p) const
- *{
- *    assert(p->sig);
- *    return p->sig->elto;
- *}
- */
-
-template <typename T>
-typename ListaCircular<T>::posicion ListaCircular<T>::buscar(const T& x) const
-{
-    nodo* q = L;
-    bool encontrado = false;
-    
-    while (q->sig && !encontrado)
-        if (q->sig->elto == x)
-            encontrado = true;
-        else
-            q = q->sig;
-    
-    return q;
-}
-
-template <typename T>
-inline T& ListaCircular<T>::elemento(ListaCircular<T>::posicion p)
-{
-    assert(p->sig);
+    assert(p->sig != L); // p no es fin
     return p->sig->elto;
 }
 
 template <typename T>
-typename ListaCircular<T>::posicion ListaCircular<T>::inipos() const
+inline T& Lista<T>::elemento(Lista<T>::posicion p)
 {
-
-    if(L != 0) {
-        return L;
-    } else {
-        return POS_NULA;
-    }
-}
-
-template <typename T> inline
-typename ListaCircular<T>::posicion ListaCircular<T>::siguiente(ListaCircular<T>::posicion p) const
-{
-    assert(p->sig);
-
-    if(p->sig == 0) {
-        return L;
-    }
-    return p->sig;
+    //assert(p->sig != L); // p no es fin
+    return p->sig->elto;
 }
 
 template <typename T>
-typename ListaCircular<T>::posicion ListaCircular<T>::anterior(ListaCircular<T>::posicion p) const
+typename Lista<T>::posicion
+Lista<T>::buscar(const T& x) const
 {
-    /*
-     *nodo* q;
-     *assert(p != L); // p no es la primera posición
-     *for (q = L; q->sig != p; q = q->sig);
-     *return q;
-     */
+    nodo* q = L;
+    bool encontrado = false;
+    while (q->sig != L && !encontrado)
+        if (q->sig->elto == x)
+            encontrado = true;
+        else q = q->sig;
+            return q;
+}
+
+template <typename T> inline
+typename Lista<T>::posicion
+Lista<T>::siguiente(Lista<T>::posicion p) const
+{
+    assert(p->sig != L); // p no es fin
+    return p->sig;
+}
+
+template <typename T> inline
+typename Lista<T>::posicion
+Lista<T>::anterior(Lista<T>::posicion p) const
+{
+    assert(p != L); // p no es la primera posición
     return p->ant;
 }
 
-// Destructor: destruye el nodo cabecera y vacía la ListaCircular
-template <typename T> ListaCircular<T>::~ListaCircular()
+template <typename T>
+inline typename Lista<T>::posicion Lista<T>::primera() const
 {
-    nodo* q;
-    
-    while (L)
-    {
-        q = L->sig;
-        delete L;
-        L = q;
-    }
+    return L;
 }
 
-#endif /* ListaCircular_h */
+template <typename T>
+inline typename Lista<T>::posicion Lista<T>::inipos() const
+{
+    if(L != 0)
+        return L;
+    else
+        return POS_NULA;
+}
+
+template <typename T>
+inline typename Lista<T>::posicion Lista<T>::fin() const
+{
+    return F;
+}
+
+// Destructor: Vacía la lista y destruye el nodo cabecera
+template <typename T>
+Lista<T>::~Lista()
+{
+    nodo* q;
+    while (L->sig != L) {
+        q = L->sig;
+        L->sig = q->sig;
+        delete q;
+    }
+    delete L;
+}
+#endif // LISTA_CIRC_H

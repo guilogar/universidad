@@ -89,7 +89,7 @@ typename ListaCircular<T>::posicion
 ListaCircular<T>::siguiente(ListaCircular<T>::posicion p) const
 {
     //assert(p->sig != L); // p no es fin
-    if(p->sig->sig == L) {
+    if(p->sig == L) {
         return p->sig->sig;
     } else {
         return p->sig;

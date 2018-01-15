@@ -19,6 +19,7 @@ public class utilsFile {
         BufferedReader bw = null;
         FileReader fw = null;
         String res = null;
+        String resAux = null;
         try {
             if(fold != null) {
                 boolean success = (new File(fold)).mkdirs();
@@ -30,8 +31,13 @@ public class utilsFile {
             bw = new BufferedReader(fw);
             
             res = bw.readLine();
+            resAux = bw.readLine();
+            while(resAux != null) {
+                res += resAux;
+                resAux = bw.readLine();
+            }
             
-            System.out.println("Done");
+            //System.out.println("Done");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -65,7 +71,7 @@ public class utilsFile {
             bw = new BufferedWriter(fw);
             bw.write(content);
             
-            System.out.println("Done");
+            //System.out.println("Done");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

@@ -66,10 +66,6 @@ template <typename T> inline
 void ListaCircular<T>::insertar(const T& x, ListaCircular<T>::posicion p)
 {
     p->sig = p->sig->ant = new nodo(x, p, p->sig);
-    
-    if(L->sig == p->sig && L->ant == p->sig) {
-        //std::cout << p->sig->elto << std::endl;
-    }
     // el nuevo nodo con x queda en la posición p
 }
 
@@ -89,11 +85,14 @@ typename ListaCircular<T>::posicion
 ListaCircular<T>::siguiente(ListaCircular<T>::posicion p) const
 {
     //assert(p->sig != L); // p no es fin
-    if(p->sig == L) {
-        return p->sig->sig;
-    } else {
-        return p->sig;
-    }
+    /*
+     *if(p->sig == L->ant) {
+     *    return L;
+     *} else {
+     *    return p->sig;
+     *}
+     */
+    return p->sig;
 }
 
 template <typename T> inline
@@ -153,7 +152,7 @@ inline typename ListaCircular<T>::posicion ListaCircular<T>::inipos() const
 template <typename T>
 inline typename ListaCircular<T>::posicion ListaCircular<T>::fin() const
 {
-    return L->ant->ant;
+    return L->ant;
 }
 
 // Destructor: Vacía la ListaCircular y destruye el nodo cabecera

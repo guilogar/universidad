@@ -6,23 +6,13 @@
 using namespace std;
 void imprimir_lista(ListaCircular<int> l) {
     ListaCircular<int>::posicion p = l.inipos();
-    int q = 10;
     while(p != l.fin()) {
         int number = l.elemento(p);
         cout << number << "; ";
         p = l.siguiente(p);
     }
     int number = l.elemento(p);
-    cout << "            "<< number << "; ";
-    p = l.siguiente(p);
-    std::cout << std::endl;
-    p = l.inipos();
-    while(q != 0) {
-        int number = l.elemento(p);
-        cout << number << "; ";
-        p = l.siguiente(p);
-        q--;
-    }
+    cout << number << "; ";
     cout << endl;
 }
 
@@ -38,10 +28,20 @@ int main(int argc, const char *argv[])
     
     srand(time(0));
     
-    for(int i = 0; i < 6; i++) {
-        l.insertar(num_aleat_int(1, 6), l.inipos());
+    for(int i = 0; i < 5; i++) {
+        int num = num_aleat_int(1, 6);
+        l.insertar(num, l.inipos());
+        std::cout << num << std::endl;
     }
-    imprimir_lista(l);
+    //imprimir_lista(l);
+    
+    ListaCircular<int>::posicion p = l.inipos();
+    while(p != l.fin()) {
+        int number = l.elemento(p);
+        cout << number << "; ";
+        p = l.siguiente(p);
+    }
+    cout << endl;
     
     return 0;
 }

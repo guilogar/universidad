@@ -11,6 +11,7 @@ public class sBonoloto extends UnicastRemoteObject implements iBonoloto {
     public sBonoloto() throws RemoteException {
         for (int i = 0; i < this.bonoloto.length; i++) {
             this.bonoloto[i] = new Random().nextInt(49) + 1;
+            //this.bonoloto[i] = (i + 1);
         }
     }
     
@@ -22,7 +23,7 @@ public class sBonoloto extends UnicastRemoteObject implements iBonoloto {
         return true;
     }
     
-    public int[] ensenioCombGanadora() {
+    public int[] getCombGanadora() {
         return this.bonoloto;
     }
     
@@ -30,5 +31,11 @@ public class sBonoloto extends UnicastRemoteObject implements iBonoloto {
         iBonoloto bonoRemoto = new sBonoloto();
         Naming.bind("ServerBonoloto", bonoRemoto);
         System.out.println("Servidor para recibir apuestas preparado.");
+        System.out.print("La combinación ganadora es => ");
+        
+        for (int i = 0; i < bonoRemoto.getCombGanadora().length; i++) {
+            System.out.print(bonoRemoto.getCombGanadora()[i] + ",");
+        }
+        System.out.println();
     }
 }

@@ -12,13 +12,7 @@
 using namespace std;
 //recursive_mutex mutex;
 
-// =========================================================
-// Aqui esta el error que te comentaba.
-// No se porque pero me dice que no me encuentra la variable
-
-atomic<int> aciertos; aciertos.store(0);
-
-// =========================================================
+atomic<int> aciertos;
 
 double getNumAleat(double a, double b) {
     random_device rd;
@@ -46,6 +40,7 @@ double getPi(int puntos) {
 }
 
 int main(int argc, const char *argv[]) {
+    aciertos.store(0);
     int numeroHilos = 10;
     vector<thread> hilos;
     

@@ -3,31 +3,61 @@
 #include <cmath>
 #include <algorithm>
 #include <thread>
+#include <random>
+#include <atomic>
+#include <vector>
+
+#define N 1000
 
 using namespace std;
+//recursive_mutex mutex;
+
+// =========================================================
+// Aqui esta el error que te comentaba.
+// No se porque pero me dice que no me encuentra la variable
+
+atomic<int> aciertos; aciertos.store(0);
+
+// =========================================================
 
 double getNumAleat(double a, double b) {
-    return (a + ((double) rand() / RAND_MAX) * (b - a));
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_real_distribution<> dis(a, b);
+    return dis(gen);
 }
 
-double getPi(int puntos) {
-    double aciertos = 0;
+void hacerAproximacion(int puntos) {
+    //lock_guard<recursive_mutex> cerrojo(mutex);
+    
     for (int i = 0; i < puntos; i++) {
         double x = getNumAleat(0, 1) * 2 - 1;
         double y = getNumAleat(0, 1) * 2 - 1;
         double z = x*x + y*y;
         
         if(z <= 1) {
-            aciertos++;
+            ++aciertos;
         }
     }
-    return (aciertos * 4) / puntos;
+}
+
+double getPi(int puntos) {
+    return (aciertos.load() * 4) / puntos;
 }
 
 int main(int argc, const char *argv[]) {
+    int numeroHilos = 10;
+    vector<thread> hilos;
     
-    srand(time(0));
-    double aproxPi = getPi(10000);
+    for (int i = 0; i < numeroHilos; i++) {
+        hilos.push_back(thread(hacerAproximacion, N));
+    }
+    
+    for(auto& thread : hilos) {
+        thread.join();
+    }
+    
+    double aproxPi = getPi(N * numeroHilos);
     cout << "La aproximación a pi es => " << aproxPi << endl;
     
     return 0;

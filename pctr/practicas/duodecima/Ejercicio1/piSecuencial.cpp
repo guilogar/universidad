@@ -35,7 +35,7 @@ int main(int argc, const char *argv[]) {
 
 
 
-    double aproxPi = getPi(10000);
+    double aproxPi = hacerAprox(10000);
     cout << "La aproximación a pi es => " << aproxPi << endl;
 
     return 0;

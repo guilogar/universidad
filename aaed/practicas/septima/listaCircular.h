@@ -85,14 +85,12 @@ typename ListaCircular<T>::posicion
 ListaCircular<T>::siguiente(ListaCircular<T>::posicion p) const
 {
     //assert(p->sig != L); // p no es fin
-    /*
-     *if(p->sig == L->ant) {
-     *    return L;
-     *} else {
-     *    return p->sig;
-     *}
-     */
-    return p->sig;
+    if(p->sig == L->ant) {
+        return L;
+    } else {
+        return p->sig;
+    }
+    //return p->sig;
 }
 
 template <typename T> inline
@@ -159,12 +157,28 @@ inline typename ListaCircular<T>::posicion ListaCircular<T>::fin() const
 template <typename T>
 ListaCircular<T>::~ListaCircular()
 {
-    nodo* q;
-    while (L->sig != L) {
-        q = L->sig;
-        L->sig = q->sig;
-        delete q;
+    if(L != 0)
+    {
+        nodo* q;
+        while (L->sig != L)
+        {
+            q = L->sig;
+            L->sig = q->sig;
+            delete q;
+        }
+        
+        delete L;
+        L = 0;
     }
-    delete L;
 }
 #endif // ListaCircular_H
+
+
+
+
+
+
+
+
+
+

@@ -38,9 +38,10 @@ void ListaCircular<T>::copiar(const ListaCircular<T> &l)
 {
      L = new nodo(T()); // crear el nodo cabecera
      L->ant = L->sig = L; // estructura circular
+     
      // Copiar elementos de l
      for (nodo* q = l.L->sig; q != l.L; q = q->sig)
-     L->ant = L->ant->sig = new nodo(q->elto, L->ant, L);
+        L->ant = L->ant->sig = new nodo(q->elto, L->ant, L);
 }
 
 template <typename T>

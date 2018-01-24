@@ -1,9 +1,10 @@
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class piParalelo implements Runnable {
     private int puntos;
-    public static double aciertos = 0;
+    public static AtomicInteger aciertos = new AtomicInteger();
     
     public piParalelo(int puntos) {
         this.puntos = puntos;
@@ -24,13 +25,13 @@ public class piParalelo implements Runnable {
             double z = x*x + y*y;
             
             if(z <= 1) {
-                aciertos++;
+                aciertos.incrementAndGet();
             }
         }
     }
     
-    public static double getPi(double aciertos, int puntos) {
-        return (aciertos * 4) / puntos;
+    public static double getPi(int aciertos, int puntos) {
+        return (double) (aciertos * 4) / puntos;
     }
     
     public static void main (String[] args) throws Exception {
@@ -44,7 +45,6 @@ public class piParalelo implements Runnable {
         pool.shutdown();
         pool.awaitTermination(1L, TimeUnit.DAYS);
         
-        System.out.println(getPi(aciertos, N));
+        System.out.println(getPi(aciertos.get(), N));
     }
 }
-

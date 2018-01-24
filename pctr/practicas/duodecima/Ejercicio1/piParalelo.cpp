@@ -8,6 +8,7 @@
 #include <vector>
 
 #define N 1000
+#define numeroHilos 10
 
 using namespace std;
 //recursive_mutex mutex;
@@ -36,12 +37,11 @@ void hacerAproximacion(int puntos) {
 }
 
 double getPi(int puntos) {
-    return (aciertos.load() * 4) / puntos;
+    return (double) (aciertos.load() * 4) / puntos;
 }
 
 int main(int argc, const char *argv[]) {
     aciertos.store(0);
-    int numeroHilos = 10;
     vector<thread> hilos;
     
     for (int i = 0; i < numeroHilos; i++) {

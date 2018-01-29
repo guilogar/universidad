@@ -8,7 +8,7 @@ public class pcHebras {
         int N = 100;
         
         pcMonitor monitor = new pcMonitor(N);
-        for (int i = 1; i <= 8; i++) {
+        for (int i = 1000; i <= 10000; i++) {
             ExecutorService pool = Executors.newCachedThreadPool();
             long start = System.currentTimeMillis();
             for (int j = 0; j < i; j++) {

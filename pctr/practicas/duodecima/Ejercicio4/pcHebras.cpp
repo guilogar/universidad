@@ -9,7 +9,7 @@
 
 #include "pcMonitor.cpp"
 
-#define numeroHilos 7
+#define numeroHilos 10000
 
 using namespace std;
 ofstream tiempo;
@@ -46,7 +46,7 @@ int main(int argc, const char *argv[]) {
     tiempo << 1 << " " << elapsedUnaHebra.count() << endl;
     
     //Tiempo para 2 o mas p-c.
-    for (int i = 2; i <= numeroHilos; i++) {
+    for (int i = 1000; i <= numeroHilos; i++) {
         vector<thread> hilos;
         
         for (int j = 0; j < i; j++) {

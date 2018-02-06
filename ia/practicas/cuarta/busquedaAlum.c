@@ -178,13 +178,14 @@ Lista expandir(tNodo *nodo)
          tNodo *nuevo=(tNodo *) malloc(sizeof(tNodo));
          tEstado *s=(tEstado *) malloc(sizeof(tEstado));
          s=aplicaOperador(op,nodo->estado);
-         nuevo=(tNodo *) malloc(sizeof(tNodo));
+         
          nuevo->estado=s;
          nuevo->padre=nodo;
          nuevo->operador=op;
          nuevo->costeCamino=nodo->costeCamino + coste(op,nodo->estado);
          nuevo->profundidad=nodo->profundidad + 1;
          nuevo->valHeuristica = (heuristica_estandar) ? heuristica_est(s) : heuristica_man(s);
+         
          if (!ListaLlena(sucesores)){
               InsertarUltimo((void *) nuevo,sucesores);
          }

@@ -2,6 +2,7 @@
 #include <cstring>
 #include <algorithm>
 #include "listaCircular.h"
+#include "pila.h"
 
 using namespace std;
 void imprimir_lista(ListaCircular<int> l) {
@@ -61,20 +62,36 @@ int zafo(ListaCircular<int> &lista, ListaCircular<int>::posicion p) {
 
 int main(int argc, const char *argv[])
 {
-    ListaCircular<int> l;
-    
-    srand(time(0));
-    
-    for(int i = 1; i < 6; i++) {
-        int num = num_aleat_int(1, 6);
-        l.insertar(num, l.inipos());
-        //l.insertar(i, l.inipos());
-    }
-    
-    imprimir_lista(l);
-    zafo(l, l.inipos());
+    /*
+     *ListaCircular<int> l;
+     *
+     *srand(time(0));
+     *
+     *for(int i = 1; i < 6; i++) {
+     *    int num = num_aleat_int(1, 6);
+     *    l.insertar(num, l.inipos());
+     *    //l.insertar(i, l.inipos());
+     *}
+     *
+     *imprimir_lista(l);
+     *zafo(l, l.inipos());
+     */
     //int ganador = zafo(l, l.inipos());
     //std::cout << "El ganador es => " << ganador << "." << std::endl;
     
+    ListaCircular<Pila<int>> l;
+    srand(time(0));
+    
+    for(int i = 1; i <= 10; i++) {
+        
+        Pila<int> p;
+        p.push(num_aleat_int(1, 10));
+        p.push(num_aleat_int(1, 10));
+        p.push(num_aleat_int(1, 10));
+        p.push(num_aleat_int(1, 10));
+        l.insertar(p, l.inipos());
+    }
+    
+    l.~ListaCircular();
     return 0;
 }

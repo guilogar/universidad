@@ -1,7 +1,6 @@
 #ifndef ABIN_H
 #define ABIN_H
 #include <cassert>
-#include <iostream>
 
 template <typename T> class Abin {
     struct celda; // declaración adelantada privada
@@ -25,6 +24,9 @@ template <typename T> class Abin {
         nodo hijoDrchoB(nodo n) const;
         Abin(const Abin<T>& a); // ctor. de copia
         Abin<T>& operator =(const Abin<T>& a); //asignación de árboles
+        
+        int alturaB() const;
+        int profundidadNodoB(nodo n) const;
     private:
         struct celda {
             T elto;
@@ -35,7 +37,30 @@ template <typename T> class Abin {
         nodo r; // nodo raíz del árbol
         void destruirNodos(nodo& n);
         nodo copiar(nodo n);
+        
+        int alturaRec(nodo n);
 };
+
+template <typename T>
+int Abin<T>::alturaRec(Abin<T>::nodo n)
+{
+    if(n == Abin<T>::NODO_NULO)
+        return -1;
+    else
+    {
+        int izq = 1 + alturaRec(hijoIzqdoB(n));
+        int der = 1 + alturaRec(hijoDrchoB(n));
+        if(izq > der)
+            return izq;
+        else
+            return der;
+    }
+}
+template <typename T>
+inline int Abin<T>::alturaB() const
+{
+    return alturaRec(raizB());
+}
 
 /* Definición del nodo nulo */
 template <typename T>
@@ -168,7 +193,7 @@ Abin<T>& Abin<T>::operator =(const Abin<T>& a)
 // Métodos privados
 // Destruye un nodo y todos sus descendientes
 template <typename T>
-void Abin<T>::destruirNodos(Abin<T>::nodo& n)
+void                   Abin<T>::destruirNodos(Abin<T>::nodo& n)
 {
     if (n != NODO_NULO)
     {

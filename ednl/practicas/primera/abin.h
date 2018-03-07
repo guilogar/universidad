@@ -1,7 +1,6 @@
 #ifndef ABIN_H
 #define ABIN_H
 #include <cassert>
-#include <iostream>
 
 template <typename T> class Abin {
     struct celda; // declaración adelantada privada

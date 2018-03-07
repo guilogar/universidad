@@ -25,8 +25,10 @@ template <typename T> class Abin {
         Abin(const Abin<T>& a); // ctor. de copia
         Abin<T>& operator =(const Abin<T>& a); //asignación de árboles
         
+        int alturaNodoRec(nodo n) const;
         int alturaB() const;
-        int profundidadNodoB(nodo n) const;
+        
+        int profundidadNodoRec(nodo n) const;
     private:
         struct celda {
             T elto;
@@ -37,30 +39,51 @@ template <typename T> class Abin {
         nodo r; // nodo raíz del árbol
         void destruirNodos(nodo& n);
         nodo copiar(nodo n);
-        
-        int alturaRec(nodo n);
 };
 
+//========================================================================================
+//========================================================================================
+
+// Ejercicio 4 y 5 de la practica 1 de ednl.
 template <typename T>
-int Abin<T>::alturaRec(Abin<T>::nodo n)
+inline int Abin<T>::profundidadNodoRec(Abin<T>::nodo n) const
 {
     if(n == Abin<T>::NODO_NULO)
         return -1;
     else
     {
-        int izq = 1 + alturaRec(hijoIzqdoB(n));
-        int der = 1 + alturaRec(hijoDrchoB(n));
+        return 1 + profundidadNodoRec(padreB(n));
+    }
+}
+
+template <typename T>
+inline int Abin<T>::alturaNodoRec(Abin<T>::nodo n) const
+{
+    if(n == Abin<T>::NODO_NULO)
+        return -1;
+    else
+    {
+        int izq = 1 + alturaNodoRec(hijoIzqdoB(n));
+        int der = 1 + alturaNodoRec(hijoDrchoB(n));
         if(izq > der)
             return izq;
         else
             return der;
     }
 }
+
 template <typename T>
 inline int Abin<T>::alturaB() const
 {
-    return alturaRec(raizB());
+    if(arbolVacioB())
+        return 0;
+    else
+        return alturaNodoRec(raizB());
 }
+//========================================================================================
+//========================================================================================
+
+
 
 /* Definición del nodo nulo */
 template <typename T>

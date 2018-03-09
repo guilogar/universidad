@@ -1,5 +1,4 @@
 #include <iostream>
-#include <sstream>
 #include <regex>
 
 #include "fecha.hpp"
@@ -187,6 +186,35 @@ Fecha Fecha::operator -=(int f) {
     return *this;
 }
 
+bool Fecha::operator ==(const Fecha& f) {
+    return (this->dia() == f.dia() && this->mes() == f.mes() && this->anio() == f.anio());
+}
+
+bool Fecha::operator !=(const Fecha& f) {
+    return !(*this == f);
+}
+
+bool Fecha::operator >(const Fecha& f) {
+    if(this->anio() == f.anio()) {
+        if(this->mes() == f.mes())
+            return (this->dia() > f.dia());
+        return (this->mes() > f.mes());
+    }
+    return (this->anio() > f.anio());
+}
+
+bool Fecha::operator >=(const Fecha& f) {
+    return (*this > f || *this == f);
+}
+
+bool Fecha::operator <(const Fecha& f) {
+    return !(*this >= f);
+}
+
+bool Fecha::operator <=(const Fecha& f) {
+    return !(*this > f);
+}
+
 // Destructor.
 Fecha::~Fecha() { }
 
@@ -204,38 +232,34 @@ tm Fecha::obtenerStructTime() const {
 int main(int argc, const char *argv[])
 {
     try {
-        Fecha hoy;
+        Fecha anteayer("07/03/2018");
+        std::cout << anteayer << std::endl;
+        std::cout << "==============" << std::endl;
         
+        Fecha hoy;
         std::cout << hoy << std::endl;
         std::cout << "==============" << std::endl;
         
         ++hoy;
-        
         std::cout << hoy << std::endl;
         std::cout << "==============" << std::endl;
         
         hoy--;
         hoy--;
         hoy = hoy + 5;
-        
         std::cout << hoy << std::endl;
         std::cout << "==============" << std::endl;
         
         hoy += 5;
-        
         std::cout << hoy << std::endl;
         std::cout << "==============" << std::endl;
         
+        Fecha hoyy;
+        Fecha ayer = hoyy - 1;
+        std::cout << ((hoyy > ayer) ? "Tenemos un dia mas." : "Todos muertos.") << std::endl;
     } catch(Fecha::Invalida e) {
         std::cout << e.porque() << std::endl;
     }
-    
-    /*
-     *Fecha anteayer("07/03/2018");
-     *
-     *std::cout << anteayer << std::endl;
-     *std::cout << "==============" << std::endl;
-     */
     
     return 0;
 }

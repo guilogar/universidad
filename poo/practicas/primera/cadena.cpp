@@ -52,10 +52,12 @@ int Cadena::length() const {
 
 
 
-int main(int argc, const char *argv[])
-{
-    //Cadena cad(3, "abc");
-    Cadena cad("jijiji");
-    std::cout << cad << std::endl;
-    return 0;
-}
+/*
+ *int main(int argc, const char *argv[])
+ *{
+ *    //Cadena cad(3, "abc");
+ *    Cadena cad("jijiji");
+ *    std::cout << cad << std::endl;
+ *    return 0;
+ *}
+ */

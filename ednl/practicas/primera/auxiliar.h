@@ -10,6 +10,8 @@
 #ifndef AUXILIAR_H
 #define AUXILIAR_H
 
+#include <algorithm>
+
 // Cabeceras
 int numNodosArbol(Abin<int> A);
 int numNodosRec(Abin<int>::nodo nodo, Abin<int> A);
@@ -21,6 +23,7 @@ int profundidadNodoRec(Abin<int>::nodo nodo, Abin<int> A);
 int profundidadNodoIterativo(Abin<int>::nodo nodo, Abin<int> A);
 
 int desequilibrioArbol(Abin<int> A);
+int desequilibrioArbolRec(Abin<int>::nodo nodo, Abin<int> A);
 
 bool arbolPseudoCompleto(Abin<int> A);
 bool arbolPseudoCompletoRec(Abin<int>::nodo nodo, Abin<int> A);
@@ -88,10 +91,21 @@ int profundidadNodoIterativo(Abin<int>::nodo nodo, Abin<int> A) {
 // Seis
 int desequilibrioArbol(Abin<int> A)
 {
-    int izq = alturaRec(A.hijoIzqdoB(A.raizB()), A);
-    int der = alturaRec(A.hijoDrchoB(A.raizB()), A);
-    
-    return ( izq - der < 0 ) ? (der - izq) : (izq - der);
+    return desequilibrioArbolRec(A.raizB(), A);
+}
+
+int desequilibrioArbolRec(Abin<int>::nodo nodo, Abin<int> A)
+{
+    if(nodo == Abin<int>::NODO_NULO)
+        return 0;
+    else
+    {
+        return std::max( std::abs(alturaRec(A.hijoIzqdoB(nodo), A) - alturaRec(A.hijoDrchoB(nodo), A)),
+                         std::max(
+                                   desequilibrioArbolRec(A.hijoIzqdoB(nodo), A), desequilibrioArbolRec(A.hijoDrchoB(nodo), A)
+                                 )
+               );
+    }
 }
 
 // Siete
@@ -102,13 +116,19 @@ bool arbolPseudoCompleto(Abin<int> A)
 
 bool arbolPseudoCompletoRec(Abin<int>::nodo nodo, Abin<int> A)
 {
-    if( int altura = alturaRec(nodo, A) <= 2 ) {
+    if( int altura = alturaRec(nodo, A) <= 2 )
+    {
         std::cout << altura << std::endl;
         return ( nodoPseudoCompleto(A.hijoIzqdoB(nodo), A) && nodoPseudoCompleto(A.hijoDrchoB(nodo), A) );
-    } else {
+    } else
+    {
         int izq = alturaRec(A.hijoIzqdoB(nodo), A);
         int der = alturaRec(A.hijoDrchoB(nodo), A);
-        return ( izq > der ) ? arbolPseudoCompletoRec(A.hijoIzqdoB(nodo), A) : arbolPseudoCompletoRec(A.hijoDrchoB(nodo), A);
+        
+        if(izq == der)
+            return arbolPseudoCompletoRec(A.hijoIzqdoB(nodo), A) && arbolPseudoCompletoRec(A.hijoDrchoB(nodo), A);
+        else
+            return ( izq > der ) ? arbolPseudoCompletoRec(A.hijoIzqdoB(nodo), A) : arbolPseudoCompletoRec(A.hijoDrchoB(nodo), A);
     }
 }
 

@@ -92,7 +92,7 @@ Fecha::Fecha(int dia, int mes, int anio) {
 Fecha::Fecha(const char s[]) {
     int dia, mes, anio;
     bool correct_format = (sscanf(s, "%d/%d/%d", &dia, &mes, &anio) == 3);
-    *this = Fecha(dia, mes, anio);
+    (correct_format) ? *this = Fecha(dia, mes, anio) : throw Invalida("Formato Incorrecto.");
 }
 
 int Fecha::dia() const {
@@ -135,6 +135,7 @@ Fecha Fecha::operator =(const Fecha& f) {
     dia_ = f.dia();
     mes_ = f.mes();
     anio_ = f.anio();
+    return *this;
 }
 
 // Sobrecarga operador pre-incremento (++Fecha).

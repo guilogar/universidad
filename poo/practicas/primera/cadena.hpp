@@ -13,14 +13,22 @@ class Cadena {
         
         int length() const;
         
-        const char operator[](int pos);
+        Cadena& substr(int init = 0, int end = 0);
+        
+        char& at(int pos);
+        char& operator[](int pos);
+        
+        /*
+         *const char at(int pos);
+         *const char operator[](int pos);
+         */
+        
         operator const char* () const { return cad_; }
         
-        Cadena operator =(const Cadena& c);
-        Cadena operator =(const char* c);
-        
-        Cadena operator +(const char* c);
-        Cadena operator +=(const char* c);
+        Cadena& operator =(const Cadena& c);
+        Cadena& operator =(const char* c);
+        Cadena& operator +(const char* c);
+        Cadena& operator +=(const char* c);
         
         bool operator ==(const char* c);
         bool operator !=(const char* c);
@@ -48,11 +56,9 @@ Cadena::Cadena(int tamanio, const char cad[]) {
 Cadena::Cadena(int tamanio, const char caracter) {
     (tamanio < 0) ? throw TamanioInvalido () : tamanio_ = tamanio;
     
-    char cad[tamanio_];
     cad_ = new char(tamanio_);
-    
     for (int i = 0; i < tamanio_; i++) { cad_[i] = caracter; }
-    cad[tamanio_] = '\0';
+    cad_[tamanio_] = '\0';
 }
 
 Cadena::Cadena(const char cad[]) {
@@ -64,6 +70,7 @@ Cadena::Cadena(const char cad[]) {
         tamanio++;
     }
     tamanio_ = tamanio;
+    cad_[tamanio_] = '\0';
 }
 
 Cadena::Cadena(int tamanio) {
@@ -83,23 +90,48 @@ int Cadena::length() const {
     return tamanio_;
 }
 
-// Sobrecarga de operadores.
-const char Cadena::operator [](int pos) {
-    return (pos >= tamanio_) ? throw TamanioInvalido () : cad_[pos];
+Cadena& Cadena::substr(int init, int end) {
+    if (init + end >= tamanio_) throw std::out_of_range ("Tamaño maximo excedido.");
+    
+    //Cadena n;
+    
+    for (int i = init; i < init+end; i++) {
+        //n += cad_[i];
+    }
+    //return n;
 }
 
-Cadena Cadena::operator =(const char* c) {
+char& Cadena::at(int pos) {
+    if(pos >= tamanio_) throw std::out_of_range ("Tamaño maximo excedido.");
+    return (*this)[pos];
+}
+
+// Sobrecarga de operadores.
+char& Cadena::operator [](int pos) {
+    return *(cad_ + pos);
+}
+
+Cadena& Cadena::operator =(const char* c) {
     tamanio_ = strlen(c);
     cad_ = new char(tamanio_);
     strcpy(cad_, c);
-}
-
-Cadena Cadena::operator +=(const char* c) {
-    strcat(cad_, c);
     return *this;
 }
 
-Cadena Cadena::operator +(const char* c) {
+Cadena& Cadena::operator +=(const char* c) {
+    char* cc = new char(strlen(cad_));
+    strcpy(cc, cad_);
+    
+    tamanio_ = strlen(cc) + strlen(c);
+    cad_ = new char(tamanio_);
+    
+    strcpy(cad_, cc);
+    strcat(cad_, c);
+    
+    return *this;
+}
+
+Cadena& Cadena::operator +(const char* c) {
     Cadena cad(*this);
     return (cad += c);
 }
@@ -142,13 +174,14 @@ bool Cadena::operator <=(const char* c) {
     return !(Cadena(cad_) > Cadena(c));
 }
 
-
 // Destructor.
 Cadena::~Cadena() {
-    if(cad_ != nullptr) {
-        delete cad_;
-        cad_ = nullptr;
-    }
+    delete cad_;
+    std::cout << cad_ << std::endl;
+    std::cout << strlen(cad_) << std::endl;
+    //if(cad_ != nullptr) {
+        //cad_ = nullptr;
+    //}
 }
 
 

@@ -1,13 +1,7 @@
-#include "cadena.hpp"
 #include "fecha.hpp"
+#include "cadena.hpp"
 
 using namespace std;
-
-/*
- *void funtoguapa(Cadena& c) {
- *    //c.~Cadena();
- *}
- */
 
 int main(int argc, const char *argv[]) {
     
@@ -15,10 +9,22 @@ int main(int argc, const char *argv[]) {
     Cadena cad1(3, "abc");
     Cadena cad2 = "jijiji";
     
-    //std::cout << ((cad != cad1) ? "Holiii" : "adiuuuuu") << std::endl;
-    //cad[0] = 'b'; // Da error, como deberia de haberlo.
     
-    std::cout << cad[0] << std::endl;
+    std::cout << cad1 << std::endl;
+    cad1.at(1) = 'p';
+    std::cout << cad1 << std::endl;
+    
+    std::cout << cad1 << std::endl;
+    cad1[0] = 'r';
+    std::cout << cad1 << std::endl;
+    
+    cad1 += "123456789 asd khbsaf f ";
+    std::cout << cad1 << std::endl;
+    std::cout << "=========================0" << std::endl;
+    /*
+     *cad[0] = 'o';
+     *cad.at(0) = 'o';
+     */
     
     return 0;
 }

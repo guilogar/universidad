@@ -136,8 +136,8 @@ Cadena s1(20, '['), s2(20, ']'),
     v = "Hola";			// asignación con conversión desde const char*
     cout << v << endl;
     Cadena w("Casa de muchos, casa de sucios");
-    //Cadena x(w, 16, 4);
-    //cout << '"' << w << "\"(16, 4) = " << x << endl;
+    Cadena x(w, 16, 4);
+    cout << '"' << w << "\"(16, 4) = " << x << endl;
     Cadena y("Casa de muchos, casa de sucios", 4);
     cout << "Los 4 primeros caracteres de la Cadena \"" << w
      << "\" son \"" << y << "\"\n";

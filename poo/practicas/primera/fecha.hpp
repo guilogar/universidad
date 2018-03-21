@@ -30,18 +30,18 @@ class Fecha {
         Fecha operator --();
         Fecha operator --(int f);
         
-        Fecha operator +(int f);
-        Fecha operator -(int f);
+        Fecha operator +(int f) const;
+        Fecha operator -(int f) const;
         
         Fecha operator +=(int f);
         Fecha operator -=(int f);
         
-        bool operator ==(const Fecha& f);
-        bool operator !=(const Fecha& f);
-        bool operator  >(const Fecha& f);
-        bool operator  <(const Fecha& f);
-        bool operator >=(const Fecha& f);
-        bool operator <=(const Fecha& f);
+        bool operator ==(const Fecha& f) const;
+        bool operator !=(const Fecha& f) const;
+        bool operator  >(const Fecha& f) const;
+        bool operator  <(const Fecha& f) const;
+        bool operator >=(const Fecha& f) const;
+        bool operator <=(const Fecha& f) const;
         
         class Invalida {
             public:
@@ -165,14 +165,14 @@ Fecha Fecha::operator --(int f) {
 }
 
 // Sobrecarga operador suma (Fecha + int).
-Fecha Fecha::operator +(int f) {
+Fecha Fecha::operator +(int f) const {
     Fecha suma(*this);
     suma += f;
     return suma;
 }
 
 // Sobrecarga operador resta (Fecha - int).
-Fecha Fecha::operator -(int f) {
+Fecha Fecha::operator -(int f) const {
     Fecha resta(*this);
     resta -= f;
     return resta;
@@ -200,15 +200,15 @@ Fecha Fecha::operator -=(int f) {
     return *this;
 }
 
-bool Fecha::operator ==(const Fecha& f) {
+bool Fecha::operator ==(const Fecha& f) const {
     return (this->dia() == f.dia() && this->mes() == f.mes() && this->anio() == f.anio());
 }
 
-bool Fecha::operator !=(const Fecha& f) {
+bool Fecha::operator !=(const Fecha& f) const {
     return !(*this == f);
 }
 
-bool Fecha::operator >(const Fecha& f) {
+bool Fecha::operator >(const Fecha& f) const {
     if(this->anio() == f.anio()) {
         if(this->mes() == f.mes())
             return (this->dia() > f.dia());
@@ -217,15 +217,15 @@ bool Fecha::operator >(const Fecha& f) {
     return (this->anio() > f.anio());
 }
 
-bool Fecha::operator >=(const Fecha& f) {
+bool Fecha::operator >=(const Fecha& f) const {
     return (*this > f || *this == f);
 }
 
-bool Fecha::operator <(const Fecha& f) {
+bool Fecha::operator <(const Fecha& f) const {
     return !(*this >= f);
 }
 
-bool Fecha::operator <=(const Fecha& f) {
+bool Fecha::operator <=(const Fecha& f) const {
     return !(*this > f);
 }
 

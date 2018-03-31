@@ -125,9 +125,11 @@ Cadena& Cadena::operator =(const char* c) {
 }
 
 Cadena& Cadena::operator =(const Cadena& c) {
-    tamanio_ = c.length();
-    cad_ = new char[tamanio_];
-    strcpy(cad_, c.cad_);
+    if(*this != c) {
+        tamanio_ = c.length();
+        cad_ = new char[tamanio_ + 1];
+        strcpy(cad_, c.cad_);
+    }
     return *this;
 }
 

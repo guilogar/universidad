@@ -18,6 +18,7 @@ int main(int argc, const char *argv[]) {
     Cadena u;			// constructor predeterminado
     u = t + s;			// pruebas de asignación, concatenación
     u = u;
+    puts(u);
     cout << u;
     Cadena v;
     v = "Hola";			// asignación con conversión desde const char*
@@ -28,12 +29,12 @@ int main(int argc, const char *argv[]) {
     Cadena y("Casa de muchos, casa de sucios", 4);
     cout << "Los 4 primeros caracteres de la Cadena \"" << w
      << "\" son \"" << y << "\"\n";
-
+    
     // Pruebas de índices
     size_t i = 87;
     cout << "El elemento " << i << " de la cadena es: " << u[i] << endl;
     u[94u] = u[54u] = 'p';
-     cout << "Y tras modificar algunos caracteres, la cadena queda:\n" << u;
+    cout << "Y tras modificar algunos caracteres, la cadena queda:\n" << u;
     try {
     cout << u.at(2000);		// Fuera de rango
     } catch(out_of_range& e) {

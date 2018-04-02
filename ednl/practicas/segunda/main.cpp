@@ -1,72 +1,50 @@
-#include <iostream>
-
-#ifndef IMPORTS
-#define IMPORTS
-
-#include "abin.h"
-//#include "abinModified.h"
-#include "abin_E-S.h"
-
-#endif
-
 #include "auxiliar.h"
+#include "abin_E-S.h"
 
 using namespace std;
 
-/*
- *void ensenar(Abin<int>::nodo nodo, Abin<int>& A) {
- *    std::cout << A.elemento(nodo) << std::endl;
- *}
- */
-void ensenar() {
-    std::cout << "fbkjasb fjkasbffbkjasb fjkasbf  " << std::endl;
-}
-
 int main(int argc, const char *argv[])
 {
-    Abin<int> Propio;
-    Propio.insertarRaizB(0);
-    Propio.insertarHijoIzqdoB(Propio.raizB(), 1);
-    Propio.insertarHijoDrchoB(Propio.raizB(), 2);
-    
-    Abin<int>::nodo unoPropio = Propio.hijoIzqdoB(Propio.raizB());
-    Abin<int>::nodo dosPropio = Propio.hijoDrchoB(Propio.raizB());
-    
-    Propio.insertarHijoIzqdoB(unoPropio, 3);
-    Propio.insertarHijoDrchoB(dosPropio, 4);
-    
-    
-    Abin<int>::nodo tresPropio = Propio.hijoIzqdoB(unoPropio);
-    Abin<int>::nodo cuatroPropio = Propio.hijoDrchoB(dosPropio);
-    
-    Propio.insertarHijoIzqdoB(tresPropio, 5);
-    Propio.insertarHijoDrchoB(cuatroPropio, 6);
-    
-    Abin<int> Prop;
-    Prop.insertarRaizB(0);
-    Prop.insertarHijoIzqdoB(Prop.raizB(), 1);
-    Prop.insertarHijoDrchoB(Prop.raizB(), 2);
-    
-    Abin<int>::nodo uno = Prop.hijoIzqdoB(Prop.raizB());
-    Abin<int>::nodo dos = Prop.hijoDrchoB(Prop.raizB());
-    
-    Prop.insertarHijoIzqdoB(uno, 3);
-    Prop.insertarHijoDrchoB(dos, 4);
+    /*
+     *Abin<int> Propio;
+     *Propio.insertarRaizB(0);
+     *Propio.insertarHijoIzqdoB(Propio.raizB(), 1);
+     *Propio.insertarHijoDrchoB(Propio.raizB(), 2);
+     *
+     *Abin<int>::nodo unoPropio = Propio.hijoIzqdoB(Propio.raizB());
+     *Abin<int>::nodo dosPropio = Propio.hijoDrchoB(Propio.raizB());
+     *
+     *Propio.insertarHijoIzqdoB(unoPropio, 3);
+     *Propio.insertarHijoDrchoB(dosPropio, 4);
+     *
+     *
+     *Abin<int>::nodo tresPropio = Propio.hijoIzqdoB(unoPropio);
+     *Abin<int>::nodo cuatroPropio = Propio.hijoDrchoB(dosPropio);
+     *
+     *Propio.insertarHijoIzqdoB(tresPropio, 5);
+     *Propio.insertarHijoDrchoB(cuatroPropio, 6);
+     *
+     *std::cout << ((arbolesBinSimil(Propio, Prop)) ? "wiii" : ":(") << std::endl;
+     *
+     *Propio.preordenAbin(Propio.raizB(), Propio);
+     *Abin<int> P = arbolReflec(Propio);
+     *std::cout << "======================" << std::endl;
+     *P.preordenAbin(P.raizB(), P);
+     */
     
     
-    Abin<int>::nodo tres = Prop.hijoIzqdoB(uno);
-    Abin<int>::nodo cuatro = Prop.hijoDrchoB(dos);
+    Abin<nod> ArbolAritmetico;
+    ArbolAritmetico.insertarRaizB('x');
+    ArbolAritmetico.insertarHijoIzqdoB(ArbolAritmetico.raizB(), 1);
+    ArbolAritmetico.insertarHijoDrchoB(ArbolAritmetico.raizB(), '+');
     
-    Prop.insertarHijoIzqdoB(tres, 5);
-    Prop.insertarHijoDrchoB(cuatro, 6);
+    Abin<nod>::nodo suma = ArbolAritmetico.hijoDrchoB(ArbolAritmetico.raizB());
     
-    std::cout << ((arbolesBinSimil(Propio, Prop)) ? "wiii" : ":(") << std::endl;
+    ArbolAritmetico.insertarHijoIzqdoB(suma, 5);
+    ArbolAritmetico.insertarHijoDrchoB(suma, 3);
     
-    
-    //Propio.preordenAbin(Propio.raizB(), Propio, ensenar);
-    Propio.preordenAbin(Propio.raizB(), Propio);
-    arbolReflec(Propio);
-    Propio.preordenAbin(Propio.raizB(), Propio);
+    double resultado = resArbolAritmetico(ArbolAritmetico);
+    std::cout << "Resultado => " << resultado << std::endl;
     
     return 0;
 }

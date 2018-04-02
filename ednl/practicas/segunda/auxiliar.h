@@ -2,6 +2,12 @@
 #include "Agen.hpp"
 #include "abin.h"
 
+struct nod {
+    double operando;
+    char operador;
+    nod(double operand = 0.0, char oper = 'n'): operando(operand), operador(oper) {}
+};
+
 // Ejercicio 1
 bool arbolesBinSimil(Abin<int> A, Abin<int> B);
 bool arbolesBinSimilRec(Abin<int>::nodo nodoA, Abin<int> A, Abin<int>::nodo nodoB, Abin<int> B);
@@ -25,36 +31,101 @@ bool arbolesBinSimilRec(Abin<int>::nodo nodoA, Abin<int> A, Abin<int>::nodo nodo
 
 // Ejercicio 2
 Abin<int> arbolReflec(Abin<int> A);
-Abin<int> arbolReflecRec(Abin<int>::nodo nodo, Abin<int> A);
+Abin<int>& arbolReflecRec(Abin<int>::nodo nodoA, Abin<int> A, Abin<int>::nodo nodoB, Abin<int> &B);
 
-Abin<int> arbolReflec(Abin<int> A) {
-    Abin<int> B;
-    return arbolReflecRec(A.raizB(), A, B.raizB(), B);
-}
-
-Abin<int> arbolReflecRec(Abin<int>::nodo nodoA, Abin<int> A, Abin<int>::nodo nodoB, Abin<int> B) {
-    if(nodoA != Abin<int>::NODO_NULO) {
-        B.elemento(nodoB) = A.elemento(nodoA);
-        
-        /*
-         *A = arbolReflecRec(A.hijoIzqdoB(nodo), A);
-         *A = arbolReflecRec(A.hijoDrchoB(nodo), A);
-         *
-         *Abin<int>::nodo izq = A.hijoIzqdoB(nodo);
-         *Abin<int>::nodo der = A.hijoDrchoB(nodo);
-         *
-         *if(izq != Abin<int>::NODO_NULO) {
-         *    A.eliminarHijoIzqdoB(nodo);
-         *    if(der != Abin<int>::NODO_NULO)
-         *        A.insertarHijoIzqdoB(der, A.elemento(der));
-         *}
-         *if(der != Abin<int>::NODO_NULO) {
-         *    A.eliminarHijoDrchoB(nodo);
-         *    if(izq != Abin<int>::NODO_NULO)
-         *        A.insertarHijoDrchoB(izq, A.elemento(izq));
-         *}
-         *
-         */
+Abin<int> arbolReflec(Abin<int> A)
+{
+    if(!A.arbolVacioB())
+    {
+        Abin<int> B;
+        B.insertarRaizB(A.elemento(A.raizB()));
+        return arbolReflecRec(A.raizB(), A, B.raizB(), B);
     }
-    return A;
+    else
+    {
+        return A;
+    }
 }
+
+Abin<int>& arbolReflecRec(Abin<int>::nodo nodoA, Abin<int> A, Abin<int>::nodo nodoB, Abin<int> &B)
+{
+    if(nodoA != Abin<int>::NODO_NULO)
+    {
+        Abin<int>::nodo izqA = A.hijoIzqdoB(nodoA);
+        Abin<int>::nodo derA = A.hijoDrchoB(nodoA);
+        
+        if(izqA != Abin<int>::NODO_NULO)
+        {
+            B.insertarHijoDrchoB(nodoB, A.elemento(izqA));
+        }
+        if(derA != Abin<int>::NODO_NULO)
+        {
+            B.insertarHijoIzqdoB(nodoB, A.elemento(derA));
+        }
+        Abin<int>::nodo izqB = B.hijoIzqdoB(nodoB);
+        Abin<int>::nodo derB = B.hijoDrchoB(nodoB);
+        
+        B = arbolReflecRec(izqA, A, derB, B);
+        B = arbolReflecRec(derA, A, izqB, B);
+    }
+    return B;
+}
+
+// Ejercicio 3
+double resArbolAritmetico(Abin<nod> A);
+double resArbolAritmeticoRec(Abin<nod>::nodo nodo, Abin<nod> A);
+
+double resArbolAritmetico(Abin<nod> A)
+{
+    return resArbolAritmeticoRec(A.raizB(), A);
+}
+
+double resArbolAritmeticoRec(Abin<nod>::nodo nodo, Abin<nod> A)
+{
+    if(nodo != Abin<nod>::NODO_NULO)
+    {
+        char operador = A.elemento(nodo).operador;
+        
+        if(operador, 'n')
+        {
+            return A.elemento(nodo).operando;
+        }
+        else
+        {
+            switch (operador)
+            {
+                case '+':
+                    return resArbolAritmeticoRec(A.hijoIzqdoB(nodo), A) +
+                           resArbolAritmeticoRec(A.hijoDrchoB(nodo), A);
+                    break;
+                case 'x':
+                    return resArbolAritmeticoRec(A.hijoIzqdoB(nodo), A) *
+                           resArbolAritmeticoRec(A.hijoDrchoB(nodo), A);
+                    break;
+                case '-':
+                    return resArbolAritmeticoRec(A.hijoIzqdoB(nodo), A) -
+                           resArbolAritmeticoRec(A.hijoDrchoB(nodo), A);
+                    break;
+                case '/':
+                    return resArbolAritmeticoRec(A.hijoIzqdoB(nodo), A) /
+                           resArbolAritmeticoRec(A.hijoDrchoB(nodo), A);
+                    break;
+                default:
+                    return 0.0;
+            }
+        }
+    }
+    else
+    {
+        return 0.0;
+    }
+}
+
+
+
+
+
+
+
+
+

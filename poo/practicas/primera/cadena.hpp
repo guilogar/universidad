@@ -199,5 +199,9 @@ bool Cadena::operator <=(const char* c) const {
 
 // Destructor.
 Cadena::~Cadena() {
-    //delete[] cad_;
+    if(tamanio_ > 0) {
+        delete[] cad_;
+        tamanio_ = 0;
+        cad_ = nullptr;
+    }
 }

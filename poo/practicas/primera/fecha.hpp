@@ -108,9 +108,9 @@ int Fecha::anio() const {
 // Empieza la sobrecarga de operadores.
 // Sobrecarga operador const char* .
 Fecha::operator const char*() {
-    char* fecha = new char(250);
-    char* dia_str = new char(2);
-    char* anio_str = new char(4);
+    char* fecha = new char[250];
+    char* dia_str = new char[2];
+    char* anio_str = new char[4];
     
     strcpy(fecha, "");
     

@@ -5,7 +5,7 @@
 struct nod {
     double operando;
     char operador;
-    nod(double operand = 0.0, char oper = 'n'): operando(operand), operador(oper) {}
+    nod(char oper = 'n', double operand = 0.0): operando(operand), operador(oper) {}
 };
 
 // Ejercicio 1
@@ -86,7 +86,7 @@ double resArbolAritmeticoRec(Abin<nod>::nodo nodo, Abin<nod> A)
     {
         char operador = A.elemento(nodo).operador;
         
-        if(operador, 'n')
+        if(operador == 'n')
         {
             return A.elemento(nodo).operando;
         }
@@ -99,6 +99,7 @@ double resArbolAritmeticoRec(Abin<nod>::nodo nodo, Abin<nod> A)
                            resArbolAritmeticoRec(A.hijoDrchoB(nodo), A);
                     break;
                 case 'x':
+                case '*':
                     return resArbolAritmeticoRec(A.hijoIzqdoB(nodo), A) *
                            resArbolAritmeticoRec(A.hijoDrchoB(nodo), A);
                     break;
@@ -121,11 +122,62 @@ double resArbolAritmeticoRec(Abin<nod>::nodo nodo, Abin<nod> A)
     }
 }
 
+// Ejercicio 4
 
 
+// Ejercicio nodos nostalgicos
+int profundidadNodoRec(Abin<int>::nodo, Abin<int>);
 
+int numSucesoresNodoRec(Abin<int>::nodo, Abin<int>);
+int numSucesoresNodo(Abin<int>::nodo, Abin<int>);
 
+bool nodoNostalgico(Abin<int>::nodo, Abin<int>);
 
+int numNodosNostalgicosArbolRec(Abin<int>::nodo nodo, Abin<int> A);
+int numNodosNostalgicosArbol(Abin<int> A);
 
+int profundidadNodoRec(Abin<int>::nodo nodo, Abin<int> A)
+{
+    if( nodo == Abin<int>::NODO_NULO )
+        return -1;
+    else
+        return 1 + profundidadNodoRec(A.padreB(nodo), A);
+}
 
+int numSucesoresNodoRec(Abin<int>::nodo nodo, Abin<int> A)
+{
+    if(nodo == Abin<int>::NODO_NULO)
+    {
+        return 0;
+    }
+    else
+    {
+        return 1 + numSucesoresNodoRec(A.hijoIzqdoB(nodo), A) + numSucesoresNodoRec(A.hijoDrchoB(nodo), A);
+    }
+}
 
+int numSucesoresNodo(Abin<int>::nodo nodo, Abin<int> A)
+{
+    return numSucesoresNodoRec(A.hijoIzqdoB(nodo), A) + numSucesoresNodoRec(A.hijoDrchoB(nodo), A);
+}
+
+bool nodoNostalgico(Abin<int>::nodo nodo, Abin<int> A)
+{
+    return (profundidadNodoRec(nodo, A) > numSucesoresNodo(nodo, A));
+}
+
+int numNodosNostalgicosArbolRec(Abin<int>::nodo nodo, Abin<int> A)
+{
+    if(nodo == Abin<int>::NODO_NULO)
+        return 0;
+    else
+    {
+        int nos = (nodoNostalgico(nodo, A)) ? 1 : 0;
+        return nos + numNodosNostalgicosArbolRec(A.hijoIzqdoB(nodo), A) + numNodosNostalgicosArbolRec(A.hijoDrchoB(nodo), A);
+    }
+}
+
+int numNodosNostalgicosArbol(Abin<int> A)
+{
+    return numNodosNostalgicosArbolRec(A.raizB(), A);
+}

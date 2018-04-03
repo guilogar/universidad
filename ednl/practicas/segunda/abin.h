@@ -81,8 +81,7 @@ inline void Abin<T>::insertarRaizB (const T& e)
 }
 
 template <typename T>
-inline void Abin<T>::insertarHijoIzqdoB(Abin<T>::nodo n,
-const T& e)
+inline void Abin<T>::insertarHijoIzqdoB(Abin<T>::nodo n, const T& e)
 {
     assert(n != NODO_NULO);
     assert(n->hizq == NODO_NULO); // no existe hijo
@@ -117,6 +116,7 @@ inline void Abin<T>::eliminarHijoDrchoB(Abin<T>::nodo n)
     delete(n->hder);
     n->hder = NODO_NULO;
 }
+
 template <typename T>
 inline void Abin<T>::eliminarRaizB()
 {

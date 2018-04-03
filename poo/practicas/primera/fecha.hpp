@@ -54,7 +54,7 @@ class Fecha {
         };
     private:
         int dia_, mes_, anio_;
-        int numSegundosIncremento = 86400;
+        double numSegundosIncremento = 86400;
         
         tm obtenerStructTime() const;
         int diaSemana() const;

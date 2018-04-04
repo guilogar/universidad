@@ -22,15 +22,14 @@ int main(int argc, const char *argv[])
     
     Propio.insertarHijoIzqdoB(tresPropio, 5);
     Propio.insertarHijoDrchoB(cuatroPropio, 6);
+    //Propio.insertarHijoIzqdoB(cuatroPropio, 10);
     
-    /*
-     *std::cout << ((arbolesBinSimil(Propio, Prop)) ? "wiii" : ":(") << std::endl;
-     *
-     *Propio.preordenAbin(Propio.raizB(), Propio);
-     *Abin<int> P = arbolReflec(Propio);
-     *std::cout << "======================" << std::endl;
-     *P.preordenAbin(P.raizB(), P);
-     */
+    //std::cout << ((arbolesBinSimil(Propio, Prop)) ? "wiii" : ":(") << std::endl;
+    
+    Propio.preordenAbin(Propio.raizB(), Propio);
+    Abin<int> P = arbolReflec(Propio);
+    std::cout << "======================" << std::endl;
+    P.preordenAbin(P.raizB(), P);
     
     /*
      *Abin<nod> ArbolAritmetico;
@@ -47,7 +46,7 @@ int main(int argc, const char *argv[])
      *std::cout << "Resultado => " << resultado << std::endl;
      */
     //std::cout << numSucesoresNodo(Propio.raizB(), Propio) << std::endl;
-    std::cout << numNodosNostalgicosArbol(Propio) << std::endl;
+    //std::cout << numNodosNostalgicosArbol(Propio) << std::endl;
     
     return 0;
 }

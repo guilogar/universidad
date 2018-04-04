@@ -92,7 +92,7 @@ template <typename T> double resArbolAritmeticoRec(typename Abin<T>::nodo nodo, 
        return A.elemento(nodo);
    else
    {
-       T operador = A.elemento(nodo);
+       char operador = (char) A.elemento(nodo);
        switch (operador)
        {
            case '+':

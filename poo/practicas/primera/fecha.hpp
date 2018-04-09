@@ -1,7 +1,6 @@
 #include <cstring>
 #include <ctime>
 #include <iostream>
-#include <regex>
 
 class Fecha {
     public:
@@ -18,7 +17,9 @@ class Fecha {
         //friend inline std::ostream& operator <<(std::ostream& os, const Fecha& f);
         //friend std::basic_ostream<char>& operator <<(std::basic_ostream<char>& os, const Fecha& f);
         
-        operator const char*();
+        //operator const char*();
+        
+        char* cadena() const;
         
         static const int AnnoMinimo = 1902;
         static const int AnnoMaximo = 2037;
@@ -107,7 +108,7 @@ int Fecha::anio() const {
 
 // Empieza la sobrecarga de operadores.
 // Sobrecarga operador const char* .
-Fecha::operator const char*() {
+char* Fecha::cadena() const {
     char* fecha = new char[250];
     char* dia_str = new char[2];
     char* anio_str = new char[4];

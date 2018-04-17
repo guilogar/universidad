@@ -1,5 +1,5 @@
 .data
-vector:      .word 1,50,3,4
+vector:      .word 1,0,300,4
 tamanio:     .word 4
 
              .align 2
@@ -11,10 +11,10 @@ indice_text: .asciiz "Índice: "
 .text
 .globl main
 main:
-	li $s0, 1             # i = 1
+	li $s0, 1             # int i = 1
 	lw $s1, tamanio       # tamanio
 	lw $s2, vector($zero) # int mayor = vector[0]
-	li $s3, 0             # int indice = 0
+	li $s3, 0             # int indice_del_mayor = 0
 	
 	bucle:
 		bge $s0, $s1, fin_bucle    # while(i < tamanio) {
@@ -23,9 +23,7 @@ main:
 		
 		lw $t1, vector($t0)        # aux = vector[i]
 		
-		bgt $t1, $s2, if           # if(aux > mayor) {
-		
-		j fin_if
+		ble $t1, $s2, fin_if           # if(aux > mayor) {
 		
 		if:
 			move $s2, $t1          # mayor = aux

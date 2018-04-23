@@ -81,3 +81,21 @@ where art_pv = (select max(art_pv)
 
 -- Ejercicio 8
 
+
+-- Ejercicio 11
+select *
+from articulos a1
+where exists (select art_pv
+              from articulos a2
+              where art_col = 'blanco' and a1.art_pv > a2.art_pv);
+
+
+-- Ejercicio C2
+select *
+from clientes
+where clt_pob in ('madrid', 'barcelona', 'cadiz')
+      and
+      clt_num in (select vnt_clt
+                  from ventas
+                  group by vnt_clt
+                  having count(distinct vnt_tda) > 2);

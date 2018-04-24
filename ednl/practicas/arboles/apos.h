@@ -113,7 +113,7 @@ template <typename T> Apo<T>& Apo<T>::operator =(const Apo<T>& A)
         ultimo = A.ultimo;
         // Copiar el vector
         for (nodo n = 0; n <= ultimo; n++)
-            nodos[n] = a.nodos[n];
+            nodos[n] = A.nodos[n];
     }
     return *this;
 }

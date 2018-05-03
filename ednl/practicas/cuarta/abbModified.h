@@ -52,14 +52,20 @@ template <typename T> void Abb<T>::insertarEnArbol(typename Abin<T>::nodo nodo, 
 {
     if(r != 0)
     {
-        if(A.hijoIzqdoB(nodo) == Abin<T>::NODO_NULO)
+        if(nodo != Abin<T>::NODO_NULO && A.hijoIzqdoB(nodo) == Abin<T>::NODO_NULO)
         {
             A.insertarHijoIzqdoB(nodo, r->elto);
-            r->izq.insertarEnArbol(A.hijoIzqdoB(nodo), A);
+            if(! r->izq.vacio())
+                r->izq.insertarEnArbol(A.hijoIzqdoB(nodo), A);
+            if(! r->der.vacio())
+                r->der.insertarEnArbol(A.hijoIzqdoB(nodo), A);
         }
-        else if (A.hijoDrchoB(nodo) == Abin<T>::NODO_NULO) {
+        else if (nodo != Abin<T>::NODO_NULO && A.hijoDrchoB(nodo) == Abin<T>::NODO_NULO) {
             A.insertarHijoDrchoB(nodo, r->elto);
-            r->der.insertarEnArbol(A.hijoDrchoB(nodo), A);
+            if(! r->izq.vacio())
+                r->izq.insertarEnArbol(A.hijoDrchoB(nodo), A);
+            if(! r->der.vacio())
+                r->der.insertarEnArbol(A.hijoDrchoB(nodo), A);
         }
     }
 }

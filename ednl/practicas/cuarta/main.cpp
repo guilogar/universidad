@@ -13,14 +13,27 @@ int main(int argc, const char *argv[])
     b.insertar(8);
     b.insertar(200);
     
+    printAbb(b);
+    //b.eliminarSubArbol(25);
     //printAbb(b);
-    b.eliminarSubArbol(25);
-    //printAbb(b);
-    
+    std::cout << "============================" << std::endl;
     Abin<int> a = (Abin<int>) b;
-    
-    std::cout << a.elemento(a.raizB()) << std::endl;
-    std::cout << a.elemento(a.hijoIzqdoB(a.raizB())) << std::endl;
-    std::cout << a.elemento(a.hijoIzqdoB(a.hijoIzqdoB(a.raizB()))) << std::endl;
+    printAbin(a.raizB(), a);
+    /*
+     *std::cout << a.elemento(a.raizB()) << std::endl;
+     *std::cout << a.elemento(a.hijoIzqdoB(a.raizB())) << std::endl;
+     *std::cout << a.elemento(a.hijoIzqdoB(a.hijoIzqdoB(a.raizB()))) << std::endl;
+     *
+     *std::cout << a.elemento(a.hijoDrchoB(a.raizB())) << std::endl;
+     *std::cout << a.elemento(a.hijoIzqdoB(a.hijoDrchoB(a.raizB()))) << std::endl;
+     *std::cout << a.elemento(a.hijoDrchoB(a.hijoDrchoB(a.raizB()))) << std::endl;
+     *
+     *std::cout << a.elemento(a.hijoIzqdoB(a.hijoDrchoB(a.hijoDrchoB(a.raizB())))) << std::endl;
+     *std::cout << a.elemento(a.hijoIzqdoB(a.hijoIzqdoB(a.hijoDrchoB(a.hijoDrchoB(a.raizB()))))) << std::endl;
+     */
+    /*
+     *std::cout << "===================================" << std::endl;
+     *printAbb(equilibrarArbol(b));
+     */
     return 0;
 }

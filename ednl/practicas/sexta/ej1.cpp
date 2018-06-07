@@ -1,6 +1,6 @@
 #include <iostream>
 #include "../grafos/grafoPMC.h"
-
+#include "../grafos/alg_grafoPMC.h"
 
 template <typename tCoste>
 vector<tCoste> DijkstraInv(const GrafoP<tCoste>& G, typename GrafoP<tCoste>::vertice destino,
@@ -13,7 +13,7 @@ vector<tCoste> DijkstraInv(const GrafoP<tCoste>& G, typename GrafoP<tCoste>::ver
    vector<tCoste> D;                          // Costes mínimos hasta destino.
    
    // Iniciar D y P con caminos directos hasta el vértice destino.
-   D = G[destino];
+   D = vector<tCoste> (n, GrafoP<tCoste>::INFINITO);
    D[destino] = 0;                             // Coste destino-destino es 0.
    P = vector<vertice>(n, destino);
    
@@ -25,22 +25,27 @@ vector<tCoste> DijkstraInv(const GrafoP<tCoste>& G, typename GrafoP<tCoste>::ver
       // con menor coste hasta destino.
       
       tCoste costeMin = GrafoP<tCoste>::INFINITO;
-      for (v = 0; v < n; v++)
-         if (!S[v] && D[v] <= costeMin) {
-            costeMin = D[v];
-            w = v;
-         }
+      for (v = 0; v < n; v++) {
+          if (!S[v] && D[v] <= costeMin) {
+             costeMin = D[v];
+             w = v;
+          }
+      }
       S[w] = true;                          // Incluir vértice w en S.
       
       // Recalcular coste hasta cada v no incluido en S a través de w.
-      for (v = 0; v < n; v++)
-         if (!S[v]) {
-            tCoste Dwv = suma(G[w][v], D[w]);
-            if (Dwv > D[v]) {
-               D[v] = Dwv;
-               P[v] = w;
-            }
-         }
+      for (v = 0; v < n; v++) {
+          if (!S[v]) {
+             tCoste Dwv;
+             if(D[w] != GrafoP<tCoste>::INFINITO) Dwv = suma(G[v][w], D[w]);
+             else Dwv = G[v][destino];
+             
+             if (Dwv < D[v]) {
+                D[v] = Dwv;
+                P[v] = (D[w] != GrafoP<tCoste>::INFINITO) ? w : v;
+             }
+          }
+      }
    }
    return D;
 }

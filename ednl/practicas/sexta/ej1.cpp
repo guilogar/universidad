@@ -2,6 +2,9 @@
 #include "../grafos/grafoPMC.h"
 #include "../grafos/alg_grafoPMC.h"
 
+#ifndef EJ1
+#define EJ1
+
 template <typename tCoste>
 vector<tCoste> DijkstraInv(const GrafoP<tCoste>& G, typename GrafoP<tCoste>::vertice destino,
                            vector<typename GrafoP<tCoste>::vertice>& P)
@@ -49,3 +52,5 @@ vector<tCoste> DijkstraInv(const GrafoP<tCoste>& G, typename GrafoP<tCoste>::ver
    }
    return D;
 }
+
+#endif

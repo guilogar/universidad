@@ -5,11 +5,13 @@
 #include "./ej1.cpp"
 #include "./ej2.cpp"
 #include "./ej3.cpp"
-#include "./ej4.cpp"
+#include "./ej6.cpp"
+#include "./ej8.cpp"
 
 int main(int argc, const char *argv[])
 {
-    // Ejercicio 1
+    // Ejercicio 1 -- Para resolver este ejercicio, aplicar o DijkstraOpuesto pasandole el origen
+    // o bien, el destino.
     GrafoP<int> g(10);
     g[0] = {0, 50, 2, 60, 9, 20, 5, 2, GrafoP<int>::INFINITO, GrafoP<int>::INFINITO};
     g[1] = {5, 0, 6, 3, GrafoP<int>::INFINITO, GrafoP<int>::INFINITO, 20,
@@ -18,30 +20,27 @@ int main(int argc, const char *argv[])
     g[7] = {1, 8, 1, 1, GrafoP<int>::INFINITO, GrafoP<int>::INFINITO, GrafoP<int>::INFINITO,
                         GrafoP<int>::INFINITO, GrafoP<int>::INFINITO, GrafoP<int>::INFINITO};
     
-    std::cout << g << std::endl;
+    //std::cout << g << std::endl;
     
     vector<GrafoP<int>::vertice> dij;
     vector<GrafoP<int>::vertice> dijInv;
-    std::cout << Dijkstra<int>(g, 0, dij) << std::endl;
-    std::cout << DijkstraInv<int>(g, 0, dijInv) << std::endl;
+    /*
+     *std::cout << DijkstraOpuesto<int>(g, 0, dij) << std::endl;
+     *std::cout << DijkstraInvOpuesto<int>(g, 0, dijInv) << std::endl;
+     */
     
-    std::cout << g << std::endl;
+    //std::cout << g << std::endl;
     
     // Ejercicio 2
-    pseudoCentroGrafo<int>(g);
     
-    // Ejercicio 3 -- Aun por terminar
-    GrafoP<int> gg(3);
-    gg[0] = {0, 1, GrafoP<int>::INFINITO};
-    gg[1] = {GrafoP<int>::INFINITO, 0, 2};
-    gg[2] = {0, GrafoP<int>::INFINITO, 0};
-    grafoAciclico<int>(g);
     
-    // Ejercicio 4
-    vector<bool> tomadas(10, false);
-    tomadas[5] = true;
-    GrafoP<int> sol = zuelandia<int>(g, tomadas, vector<vector<bool>> (10, vector<bool>(10, false)), 0);
-    std::cout << sol << std::endl;
+    // Ejercicio 3
+    vector<int> cantidadAlmacenadaCiudad(10, 0);
+    almacen<int>(g, {5, 80, 0, 0, 0, 0, 60, 95, 1, 8},
+                 {0, 5, 2, 3, 4, 5, 8, 9, 6, 7},
+                 0, 20, cantidadAlmacenadaCiudad);
+    
+    // Ejercicio 6
     
     return 0;
 }

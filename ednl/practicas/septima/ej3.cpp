@@ -20,7 +20,6 @@ template <typename tCoste> tCoste almacen(GrafoP<tCoste> G, vector<tCoste> subve
     }
     vector<vertice> dij;
     vector<tCoste> destinosOptimizados = Dijkstra<tCoste>(G, centroProduccion, dij);
-    std::cout << destinosOptimizados << std::endl;
     
     tCoste costeTotal = 0;
     while(cantidadProducto > 0) {
@@ -42,8 +41,6 @@ template <typename tCoste> tCoste almacen(GrafoP<tCoste> G, vector<tCoste> subve
         }
         cantidadProducto -= capacidadAlmacenCiudad[menor_indice];
     }
-    std::cout << destinosOptimizados << std::endl;
-    std::cout << "El coste total es => " << costeTotal << std::endl;
     
     return costeTotal;
 }

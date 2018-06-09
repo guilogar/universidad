@@ -23,7 +23,7 @@ vector<tCoste> DijkstraInv(const GrafoP<tCoste>& G, typename GrafoP<tCoste>::ver
    // Calcular caminos de coste mínimo desde cada vértice.
    S[destino] = true;                          // Incluir vértice destino en S.
    
-   for (size_t i = 1; i <= n-2; i++) {
+   for (size_t i = 1; i <= n; i++) {
       // Seleccionar vértice w no incluido en S
       // con menor coste hasta destino.
       
@@ -38,15 +38,13 @@ vector<tCoste> DijkstraInv(const GrafoP<tCoste>& G, typename GrafoP<tCoste>::ver
       
       // Recalcular coste hasta cada v no incluido en S a través de w.
       for (v = 0; v < n; v++) {
-          if (!S[v]) {
-             tCoste Dwv;
-             if(D[w] != GrafoP<tCoste>::INFINITO) Dwv = suma(G[v][w], D[w]);
-             else Dwv = G[v][destino];
-             
-             if (Dwv < D[v]) {
-                D[v] = Dwv;
-                P[v] = (D[w] != GrafoP<tCoste>::INFINITO) ? w : v;
-             }
+          tCoste Dwv;
+          if(D[v] != GrafoP<tCoste>::INFINITO) Dwv = suma(G[v][w], D[w]);
+          else Dwv = G[v][destino];
+          
+          if (Dwv < D[v]) {
+             D[v] = Dwv;
+             P[v] = (D[w] != GrafoP<tCoste>::INFINITO) ? w : v;
           }
       }
    }

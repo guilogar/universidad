@@ -6,7 +6,6 @@ template <typename tCoste> tCoste soloUnTransbordo(GrafoP<tCoste> tren, GrafoP<t
                                                            typename GrafoP<tCoste>::vertice origen,
                                                            typename GrafoP<tCoste>::vertice destino)
 {
-    
     typedef typename GrafoP<tCoste>::vertice vertice;
     const size_t n = tren.numVert();
     

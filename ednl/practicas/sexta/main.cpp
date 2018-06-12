@@ -34,8 +34,8 @@ int main(int argc, const char *argv[])
     GrafoP<int> gg(3);
     gg[0] = {0, 1, GrafoP<int>::INFINITO};
     gg[1] = {GrafoP<int>::INFINITO, 0, 2};
-    gg[2] = {0, GrafoP<int>::INFINITO, 0};
-    grafoAciclico<int>(g);
+    gg[2] = {GrafoP<int>::INFINITO, GrafoP<int>::INFINITO, 0};
+    std::cout << "Grafo Aciclico => " << grafoAciclico<int>(gg) << std::endl;
     
     // Ejercicio 4
     vector<bool> tomadas(10, false);

@@ -4,7 +4,8 @@
 #include "../grafos/pilaenla.h"
 #include "./ej1.cpp"
 
-template <typename tCoste> GrafoP<tCoste> zuelandia(GrafoP<tCoste> G, vector<bool> ciudadesTomadas,
+template <typename tCoste> GrafoP<tCoste> zuelandia(GrafoP<tCoste> G,
+                                          vector<bool> ciudadesTomadas,
                                           vector<vector<bool>> carreterasTomadas,
                                           typename GrafoP<tCoste>::vertice capital) {
     

@@ -5,8 +5,7 @@
 #include <vector>
 
 template <typename tCoste> matriz<tCoste> huries(GrafoP<tCoste> isla1, GrafoP<tCoste> isla2, GrafoP<tCoste> isla3,
-                                                 //vector<std::map<typename GrafoP<tCoste>::vertice, tCoste>> puentes)
-                                                 vector<std::map<int, int>> puentes)
+                                                 vector<std::map<typename GrafoP<tCoste>::vertice, tCoste>> puentes)
 {
     typedef typename GrafoP<tCoste>::vertice vertice;
     const size_t n = isla1.numVert() + isla2.numVert() + isla3.numVert();

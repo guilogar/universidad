@@ -89,9 +89,8 @@ int main(int argc, const char *argv[])
         p.push(num_aleat_int(1, 10));
         p.push(num_aleat_int(1, 10));
         p.push(num_aleat_int(1, 10));
-        l.insertar(p, l.inipos());
+        l.insertar(p, l.fin());
     }
-    
     l.~ListaCircular();
     return 0;
 }

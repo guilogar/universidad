@@ -1,3 +1,6 @@
 [submodule "poo"]
 	path = poo
 	url = https://github.com/guilogar/poo
+[submodule "aaed"]
+	path = aaed
+	url = https://github.com/guilogar/aaed

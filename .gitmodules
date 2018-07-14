@@ -4,3 +4,18 @@
 [submodule "aaed"]
 	path = aaed
 	url = https://github.com/guilogar/aaed
+[submodule "pctr"]
+	path = pctr
+	url = https://github.com/guilogar/pctr
+[submodule "ia"]
+	path = ia
+	url = https://github.com/guilogar/ia
+[submodule "fec"]
+	path = fec
+	url = https://github.com/guilogar/fec
+[submodule "bd"]
+	path = bd
+	url = https://github.com/guilogar/bd
+[submodule "ednl"]
+	path = ednl
+	url = https://github.com/guilogar/ednl

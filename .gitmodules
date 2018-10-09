@@ -19,3 +19,6 @@
 [submodule "ednl"]
 	path = ednl
 	url = https://github.com/guilogar/ednl
+[submodule "da"]
+	path = da
+	url = https://github.com/guilogar/da.git

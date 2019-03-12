@@ -31,3 +31,6 @@
 [submodule "abd"]
 	path = abd
 	url = https://github.com/guilogar/abd.git
+[submodule "recinf"]
+	path = recinf
+	url = https://github.com/guilogar/recinf.git

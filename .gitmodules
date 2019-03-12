@@ -25,3 +25,9 @@
 [submodule "ac_project"]
 	path = ac_project
 	url = https://github.com/guilogar/ac_project.git
+[submodule "sd"]
+	path = sd
+	url = https://github.com/guilogar/sd.git
+[submodule "abd"]
+	path = abd
+	url = https://github.com/guilogar/abd.git

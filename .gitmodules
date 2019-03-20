@@ -22,9 +22,6 @@
 [submodule "da"]
 	path = da
 	url = https://github.com/guilogar/da.git
-[submodule "ac_project"]
-	path = ac_project
-	url = https://github.com/guilogar/ac_project.git
 [submodule "sd"]
 	path = sd
 	url = https://github.com/guilogar/sd.git

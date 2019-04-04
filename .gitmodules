@@ -34,3 +34,6 @@
 [submodule "proyecto_rc"]
 	path = proyecto_rc
 	url = https://github.com/guilogar/proyecto_rc.git
+[submodule "is"]
+	path = is
+	url = git@github.com:guilogar/is.git

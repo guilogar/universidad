@@ -1,39 +1,42 @@
 [submodule "poo"]
 	path = poo
-	url = https://github.com/guilogar/poo
+	url = git@github.com:guilogar/poo
 [submodule "aaed"]
 	path = aaed
-	url = https://github.com/guilogar/aaed
+	url = git@github.com:guilogar/aaed
 [submodule "pctr"]
 	path = pctr
-	url = https://github.com/guilogar/pctr
+	url = git@github.com:guilogar/pctr
 [submodule "ia"]
 	path = ia
-	url = https://github.com/guilogar/ia
+	url = git@github.com:guilogar/ia
 [submodule "fec"]
 	path = fec
-	url = https://github.com/guilogar/fec
+	url = git@github.com:guilogar/fec
 [submodule "bd"]
 	path = bd
-	url = https://github.com/guilogar/bd
+	url = git@github.com:guilogar/bd
 [submodule "ednl"]
 	path = ednl
-	url = https://github.com/guilogar/ednl
+	url = git@github.com:guilogar/ednl
 [submodule "da"]
 	path = da
-	url = https://github.com/guilogar/da.git
+	url = git@github.com:guilogar/da.git
 [submodule "sd"]
 	path = sd
-	url = https://github.com/guilogar/sd.git
+	url = git@github.com:guilogar/sd.git
 [submodule "abd"]
 	path = abd
-	url = https://github.com/guilogar/abd.git
+	url = git@github.com:guilogar/abd.git
 [submodule "recinf"]
 	path = recinf
-	url = https://github.com/guilogar/recinf.git
+	url = git@github.com:guilogar/recinf.git
 [submodule "proyecto_rc"]
 	path = proyecto_rc
-	url = https://github.com/guilogar/proyecto_rc.git
+	url = git@github.com:guilogar/proyecto_rc.git
 [submodule "is"]
 	path = is
 	url = git@github.com:guilogar/is.git
+[submodule "pnet"]
+	path = pnet
+	url = git@github.com:guilogar/pnet.git

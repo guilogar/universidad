@@ -40,3 +40,21 @@
 [submodule "pnet"]
 	path = pnet
 	url = git@github.com:guilogar/pnet.git
+[submodule "ssi"]
+	path = ssi
+	url = git@github.com:guilogar/ssi.git
+[submodule "isi"]
+	path = isi
+	url = git@github.com:guilogar/isi.git
+[submodule "tin"]
+	path = tin
+	url = git@github.com:guilogar/tin.git
+[submodule "tfg"]
+	path = tfg
+	url = git@github.com:guilogar/tfg.git
+[submodule "tabd"]
+	path = tabd
+	url = git@github.com:guilogar/tabd.git
+[submodule "dsh"]
+	path = dsh
+	url = git@github.com:guilogar/dsh.git

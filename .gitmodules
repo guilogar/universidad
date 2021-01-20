@@ -22,9 +22,6 @@
 [submodule "da"]
 	path = da
 	url = git@github.com:guilogar/da.git
-[submodule "sd"]
-	path = sd
-	url = git@github.com:guilogar/sd.git
 [submodule "abd"]
 	path = abd
 	url = git@github.com:guilogar/abd.git

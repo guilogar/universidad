@@ -55,3 +55,6 @@
 [submodule "dsh"]
 	path = dsh
 	url = git@github.com:guilogar/dsh.git
+[submodule "sd"]
+	path = sd
+	url = git@github.com:guilogar/sd.git
